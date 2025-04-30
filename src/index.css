@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "pretendard/dist/web/static/pretendard.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -39,6 +40,21 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-gray-white: #ffffff;
+  --color-gray-100: #f5f5f7;
+  --color-gray-200: #e5e5e8;
+  --color-gray-300: #ccccd2;
+  --color-gray-400: #aaaab4;
+  --color-gray-500: #888891;
+  --color-gray-600: #55555f;
+  --color-gray-700: #33333c;
+  --color-gray-black: #111119;
+
+  --color-main-primary: #daf146;
+  --color-main-secondary: #bdd80e;
+  --color-sub: #41dabb;
+  --color-error: #ef5a5a;
 }
 
 :root {
@@ -117,4 +133,43 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+html {
+  font-family: "Pretendard", sans-serif;
+}
+
+@utility bg-gradation {
+  background-image: linear-gradient(135deg, #daf146 0%, #41dabb 100%);
+}
+
+@utility text-headline-1 {
+  @apply text-[1.25rem] leading-[140%] font-bold;
+}
+@utility text-headline-2 {
+  @apply text-[1.125rem] leading-[140%] font-semibold;
+}
+@utility text-subtitle-1 {
+  @apply text-[1rem] leading-[140%] font-medium;
+}
+@utility text-subtitle-2 {
+  @apply text-[0.875rem] leading-[140%] font-medium;
+}
+@utility text-body-1 {
+  @apply text-[1rem] leading-[160%] font-normal;
+}
+@utility text-body-2 {
+  @apply text-[0.875rem] leading-[160%] font-normal;
+}
+@utility text-caption-1 {
+  @apply text-[0.75rem] leading-[160%] font-semibold;
+}
+@utility text-caption-2 {
+  @apply text-[0.75rem] leading-[160%] font-medium;
+}
+@utility text-button-1 {
+  @apply text-[1rem] leading-[140%] font-bold;
+}
+@utility text-button-2 {
+  @apply text-[0.875rem] leading-[140%] font-bold;
 }
