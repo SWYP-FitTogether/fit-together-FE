@@ -173,3 +173,9 @@ html {
 @utility text-button-2 {
   @apply text-[0.875rem] leading-[140%] font-bold;
 }
+@utility shadow-drop {
+  @apply shadow-[0px_0px_5px_rgba(0,0,0,0.15)];
+}
+@utility shadow-inset {
+  @apply shadow-[inset_0px_0px_5px_rgba(0,0,0,0.15)];
+}
