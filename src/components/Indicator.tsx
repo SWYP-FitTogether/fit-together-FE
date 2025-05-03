@@ -6,7 +6,7 @@ const indicatorVariants = cva(
   {
     variants: {
       type: {
-        BG: "bg-gray-black [&>span:nth-child(1)]:text-gray-white [&>span:nth-child(2)]:text-gray-100 [&>span:nth-child(3)]:text-gray-100",
+        BG: "bg-gray-black/70 [&>span:nth-child(1)]:text-gray-white [&>span:nth-child(2)]:text-gray-100 [&>span:nth-child(3)]:text-gray-100",
         None: "[&>span:nth-child(1)]:text-gray-500 [&>span:nth-child(2)]:text-gray-400 [&>span:nth-child(3)]:text-gray-400"
       }
     },
