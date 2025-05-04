@@ -12,7 +12,7 @@ function MultiChipButton({ className, children, ...props }: IMultiChipButtonProp
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        "w-fit h-16 flex gap-3 p-5 bg-gray-white text-body-1 font-semibold border border-gray-200 text-gray-600 rounded-base hover:bg-gray-100 data-[state=checked]:bg-main-primary data-[state=checked]:border-main-primary data-[state=checked]:text-gray-black data-[state=checked]:[&>svg]:text-gray-600 disabled:border-gray-200 disabled:bg-gray-200 disabled:text-gray-400 disabled:[&>svg]:text-gray-300",
+        "cursor-pointer w-fit h-16 flex gap-3 p-5 bg-gray-white text-body-1 font-semibold border border-gray-200 text-gray-600 rounded-base hover:bg-gray-100 active:bg-gray-100 data-[state=checked]:bg-main-primary data-[state=checked]:border-main-primary data-[state=checked]:text-gray-black data-[state=checked]:[&>svg]:text-gray-600 disabled:border-gray-200 disabled:bg-gray-200 disabled:text-gray-400 disabled:[&>svg]:text-gray-300",
         className
       )}
       {...props}
