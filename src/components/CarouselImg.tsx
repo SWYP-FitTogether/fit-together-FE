@@ -15,7 +15,7 @@ const CarouselImg = ({ images, onImageClick }: ICarouselImg) => {
           <CarouselItem
             key={item.id}
             onClick={() => onImageClick?.(item)}
-            className="relative w-[335px] h-[335px] rounded-lg cursor-pointer"
+            className="relative w-[335px] h-[335px] rounded-base cursor-pointer"
           >
             <img
               src={item.src || `/blankImg.png`}
