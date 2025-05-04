@@ -56,7 +56,7 @@ const Dropdown = ({ id, placeholder, label, items, ...props }: IDropdownProps) =
       <Select {...props}>
         <SelectTrigger
           id={id}
-          className="w-full text-body-1 data-[placeholder]:text-gray-500 data-[size=default]:h-[58px] rounded-base border border-gray-200 bg-gray-white p-4 [&>svg]:w-6 [&>svg]:h-6 [&>svg]:text-gray-600 [&>svg]:opacity-1000 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 focus-visible:border-main-secondary data-[state=open]:border-main-secondary focus:data-[state=open]:border-main-secondary data-[state=open]:[&>svg]:rotate-180"
+          className="w-full text-body-1 data-[placeholder]:text-gray-500 data-[size=default]:h-[58px] rounded-base border border-gray-200 bg-gray-white p-4 [&>svg]:w-6 [&>svg]:h-6 [&>svg]:text-gray-600 [&>svg]:opacity-1000 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 focus-visible:border-main-secondary data-[state=open]:border-main-secondary focus:data-[state=open]:border-main-secondary data-[state=open]:[&>svg]:rotate-180 disabled:bg-gray-200 data-[disabled]:opacity-100 data-[disabled]:data-[placeholder]:text-gray-400 disabled:[&>svg]:text-gray-300"
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

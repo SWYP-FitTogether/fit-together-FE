@@ -13,7 +13,7 @@ const CheckBox = ({ id, label, ...props }: ICheckBoxProps) => {
       <div className="w-6 h-6 flex justify-center items-center p-[3px]">
         <Checkbox
           id={id}
-          className="w-[18px] h-[18px] border-[1.5px] border-gray-400 data-[state=checked]:border-none data-[state=checked]:bg-main-secondary disabled:bg-gray-200 disabled:border-none"
+          className="w-[18px] h-[18px] border-[1.5px] border-gray-400 data-[state=checked]:border-none data-[state=checked]:bg-main-secondary disabled:bg-gray-200 disabled:border-none disabled:opacity-100"
           {...props}
         />
       </div>

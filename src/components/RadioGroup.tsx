@@ -28,7 +28,7 @@ function RadioButton({ label, id, className, ...props }: IRadioButtonProps) {
         <RadioGroupItem
           id={id}
           className={cn(
-            "w-5 h-5 border-[1.5px] border-gray-400 data-[state=checked]:border-main-secondary [&>span>svg]:fill-main-secondary [&>span>svg]:text-main-secondary [&>span>svg]:w-3 [&>span>svg]:h-3 disabled:bg-gray-200 disabled:border-none",
+            "w-5 h-5 border-[1.5px] border-gray-400 data-[state=checked]:border-main-secondary [&>span>svg]:fill-main-secondary [&>span>svg]:text-main-secondary [&>span>svg]:w-3 [&>span>svg]:h-3 disabled:bg-gray-200 disabled:border-none disabled:opacity-100",
             className
           )}
           {...props}

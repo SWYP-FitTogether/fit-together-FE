@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { InputHTMLAttributes, useState } from "react";
 
 const textInputVariants = cva(
-  "p-4 rounded-base bg-gray-white text-body-1 placeholder:text-gray-500 text-gray-700 border border-gray-200 h-[58px] focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 focus-visible:border-main-secondary focus-visible:border disabled:bg-gray-200 disabled:text-gray-400",
+  "p-4 rounded-base bg-gray-white text-body-1 placeholder:text-gray-500 text-gray-700 border border-gray-200 h-[58px] focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 focus-visible:border-main-secondary focus-visible:border disabled:bg-gray-200 disabled:text-gray-400 disabled:opacity-100",
   {
     variants: {
       type: {
