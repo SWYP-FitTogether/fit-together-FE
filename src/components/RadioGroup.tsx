@@ -16,12 +16,12 @@ function RadioGroup({
   );
 }
 
-interface IRadioButtonsProps extends React.ComponentProps<typeof RadioGroupItem> {
+interface IRadioButtonProps extends React.ComponentProps<typeof RadioGroupItem> {
   id: string;
   label?: string;
 }
 
-function RadioButton({ label, id, className, ...props }: IRadioButtonsProps) {
+function RadioButton({ label, id, className, ...props }: IRadioButtonProps) {
   return (
     <div className={cn("p-2 flex items-center h-11 gap-1", label && "px-3")}>
       <div className="w-6 h-6 p-0.5">
