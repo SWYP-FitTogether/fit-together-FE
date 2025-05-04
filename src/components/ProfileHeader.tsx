@@ -1,5 +1,5 @@
 import CircleImg from "./CircleImg";
-import ClapIcon from "./icons/ClapIcon";
+import HighfiveButton from "./HighfiveButton";
 
 interface IProfileHeaderProps extends Omit<React.ComponentProps<typeof CircleImg>, "size"> {
   date?: string;
@@ -29,14 +29,7 @@ const ProfileHeader = ({
         </div>
         {date && <span className="text-caption-2 text-gray-400">{date}</span>}
       </div>
-      {isIcon && (
-        <button
-          onClick={onIconClick}
-          className="cursor-pointer hover:bg-gray-100 active:bg-gray-100 border border-gray-200 w-11 h-11 rounded-full shadow-drop flex justify-center items-center"
-        >
-          <ClapIcon className="text-gray-500 w-5 h-5" />
-        </button>
-      )}
+      {isIcon && <HighfiveButton variant="default" onClick={onIconClick} />}
     </div>
   );
 };
