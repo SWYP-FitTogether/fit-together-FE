@@ -7,8 +7,8 @@ export function SecondaryButton() {
         <Button
             className="
             bg-gray-100 text-gray-600
-            hover:bg-gray-100 hover:text-gray-600
-            active:bg-gray-100 active:text-gray-600
+            hover:bg-gray-100 hover:text-gray-600 hover:border hover:border-gray-200
+            active:bg-gray-100 active:text-gray-600 active:border active:border-gray-200
             disabled:bg-gray-200 disabled:text-gray-400
             "
         >
