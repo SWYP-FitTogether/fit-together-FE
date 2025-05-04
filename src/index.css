@@ -55,6 +55,8 @@
   --color-main-secondary: #bdd80e;
   --color-sub: #41dabb;
   --color-error: #ef5a5a;
+
+  --radius-base: 8px;
 }
 
 :root {

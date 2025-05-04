@@ -3,3 +3,8 @@ export interface ICarouselImgs {
   src?: string;
   alt?: string;
 }
+
+export interface IDropdownItem {
+  value: string;
+  title: React.ReactNode;
+}
