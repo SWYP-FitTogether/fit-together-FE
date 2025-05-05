@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import CircleImg from "./CircleImg";
 import HighfiveButton from "./HighfiveButton";
 
@@ -13,6 +14,7 @@ const ProfileHeader = ({
   date,
   isIcon,
   onIconClick,
+  className,
   name,
   level,
   isLoading,
@@ -20,7 +22,7 @@ const ProfileHeader = ({
   imgAlt
 }: IProfileHeaderProps) => {
   return (
-    <div className="w-full flex gap-2 items-center">
+    <div className={cn("w-full flex gap-2 items-center", className)}>
       <CircleImg size="S" isLoading={isLoading} imgSrc={imgSrc} imgAlt={imgAlt} />
       <div className="h-[39px] grow flex flex-col justify-center">
         <div className="flex gap-1">
