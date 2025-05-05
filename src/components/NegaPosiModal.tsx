@@ -29,7 +29,7 @@ const NegaPosiModal = ({
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent className="w-[335px] p-4 pt-8 flex flex-col gap-8 items-center justify-center rounded-[12px]">
-        <div className="w-fit flex flex-col gap-1">
+        <div className="w-fit flex flex-col gap-1 items-center">
           <AlertDialogTitle className="text-headline-2 text-gray-black w-fit">
             {title}
           </AlertDialogTitle>
