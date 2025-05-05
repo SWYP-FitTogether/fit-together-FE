@@ -1,10 +1,11 @@
+import { ReactNode } from "react";
 import IndentIcon from "./icons/IndentIcon";
 import LikeIcon from "./icons/LikeIcon";
-import ProfileHeader from "./ProfileHeader";
 
 interface ICommentProps {
   isReply?: boolean;
   comment: string;
+  profileHeader: ReactNode;
   onLikeClick?: () => void;
   onAddCommentClick?: () => void;
 }
@@ -14,12 +15,8 @@ const Comment = ({
   comment,
   onLikeClick,
   onAddCommentClick,
-  name,
-  level,
-  imgSrc,
-  imgAlt,
-  isLoading
-}: ICommentProps & React.ComponentProps<typeof ProfileHeader>) => {
+  profileHeader
+}: ICommentProps) => {
   return (
     <div className="flex gap-1">
       {isReply && (
@@ -28,15 +25,7 @@ const Comment = ({
         </div>
       )}
       <div className="bg-transparent w-full flex flex-col gap-2">
-        <div className="h-11 flex items-center">
-          <ProfileHeader
-            name={name}
-            level={level}
-            imgSrc={imgSrc}
-            imgAlt={imgAlt}
-            isLoading={isLoading}
-          />
-        </div>
+        <div className="h-11 flex items-center">{profileHeader}</div>
 
         <div className="flex justify-between items-center gap-1">
           <p className="text-gray-700 text-body-1 h-[26px] grow">{comment}</p>
