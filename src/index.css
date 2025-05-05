@@ -151,6 +151,9 @@ html {
 @utility text-headline-2 {
   @apply text-[1.125rem] leading-[140%] font-semibold;
 }
+@utility text-headline-3 {
+  @apply text-[1rem] leading-[140%] font-semibold;
+}
 @utility text-subtitle-1 {
   @apply text-[1rem] leading-[140%] font-medium;
 }
