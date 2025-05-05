@@ -23,7 +23,7 @@ interface IDefaultProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 interface IClickProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "click";
   count: number;
-  maxCount: number;
+  maxcount: number;
 }
 
 type IHighfiveButtonProps = IDefaultProps | IClickProps;
@@ -35,7 +35,7 @@ const HighfiveButton = (props: IHighfiveButtonProps) => {
       className={cn(
         buttonVariants({ variant }),
         variant === "click" &&
-          props.count === props.maxCount &&
+          props.count === props.maxcount &&
           "bg-gradation cursor-not-allowed hover:opacity-100 active:opacity-100",
         className
       )}
