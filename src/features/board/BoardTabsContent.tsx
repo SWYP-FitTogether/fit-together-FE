@@ -74,7 +74,7 @@ const BoardTabsContent = ({ value }: IBoardTabsContentProps) => {
           추천순
         </TertiaryButton>
       </div>
-      <ScrollArea className="px-5 h-[calc(100dvh-179px)]">
+      <ScrollArea className="px-5 h-[calc(100dvh-195px)]">
         {POSTS.map((post) => (
           <BoardPostCard key={post.id} name="닉네임" level={0} {...post} />
         ))}
