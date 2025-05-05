@@ -3,11 +3,18 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { queryClient } from "./utils/queryClient";
 import BoardPage from "./pages/BoardPage";
 import Layout from "./pages/Layout";
+import PostDetailPage from "./pages/PostDetailPage";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    children: [{ path: "/board", element: <BoardPage /> }]
+    children: [
+      {
+        path: "board",
+        element: <BoardPage />
+      },
+      { path: "board/:postId", element: <PostDetailPage /> }
+    ]
   }
 ]);
 
