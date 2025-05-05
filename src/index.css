@@ -184,3 +184,18 @@ html {
 @utility shadow-inset {
   @apply shadow-[inset_0px_0px_5px_rgba(0,0,0,0.15)];
 }
+
+.react-modal-sheet-container {
+  width: 375px !important;
+  height: 417px !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 auto !important;
+}
+.react-modal-sheet-header {
+  height: 24px !important;
+}
+
+.react-modal-sheet-content {
+  padding: 8px 20px 20px;
+}
