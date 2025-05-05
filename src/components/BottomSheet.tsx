@@ -4,6 +4,7 @@ import Button from "./Button";
 import { ReactNode } from "react";
 
 interface IBottomSheetProps {
+  title: string;
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
@@ -12,6 +13,7 @@ interface IBottomSheetProps {
 }
 
 const BottomSheet = ({
+  title,
   isOpen,
   onClose,
   buttonDisabled,
@@ -26,7 +28,7 @@ const BottomSheet = ({
           <Sheet.Content>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col items-center gap-2">
-                <h1 className="w-[47px] h-[25px] text-headline-2 text-gray-black">타이틀</h1>
+                <h1 className="w-[47px] h-[25px] text-headline-2 text-gray-black">{title}</h1>
                 <ScrollArea className="h-[264px] w-full">{children}</ScrollArea>
               </div>
               <Button variant="primary" size="M" disabled={buttonDisabled} onClick={onButtonClick}>
