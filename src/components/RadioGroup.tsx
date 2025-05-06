@@ -37,7 +37,10 @@ function RadioButton({ label, id, className, ...props }: IRadioButtonProps) {
       {label && (
         <Label
           htmlFor={id}
-          className={cn("h-[26px] text-gray-700 text-body-1", props.disabled && "text-gray-400")}
+          className={cn(
+            "h-[26px] text-gray-700 text-body-1 grow",
+            props.disabled && "text-gray-400"
+          )}
         >
           {label}
         </Label>

@@ -8,3 +8,5 @@ export interface IDropdownItem {
   value: string;
   title: React.ReactNode;
 }
+
+export type ParamsType = "postId";

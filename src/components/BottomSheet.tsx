@@ -28,7 +28,7 @@ const BottomSheet = ({
           <Sheet.Content>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col items-center gap-2">
-                <h1 className="w-[47px] h-[25px] text-headline-2 text-gray-black">{title}</h1>
+                <h1 className="h-[25px] text-headline-2 text-gray-black">{title}</h1>
                 <ScrollArea className="h-[264px] w-full">{children}</ScrollArea>
               </div>
               <Button variant="primary" size="M" disabled={buttonDisabled} onClick={onButtonClick}>

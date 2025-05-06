@@ -84,6 +84,8 @@ interface IWriteProps {
   buttonText: string;
   onButtonClick?: () => void;
   onBack?: () => void;
+  active?: boolean;
+  disabled?: boolean;
 }
 interface IMypageDetailProps {
   type: "mypageDetail";
@@ -100,6 +102,8 @@ interface IOnboardSuccessProps {
   type: "onboardSuccess";
   buttonText: string;
   onButtonClick?: () => void;
+  active?: boolean;
+  disabled?: boolean;
 }
 
 interface ISubBaseProps {
@@ -128,7 +132,9 @@ function SubNavigation(props: SubNavigationProps) {
       {(type === "write" || type === "onboardSuccess") && (
         <TertiaryButton
           onClick={props.onButtonClick}
-          className="text-gray-500 text-[14px] font-bold"
+          className="text-gray-500"
+          active={props.active}
+          disabled={props.disabled}
         >
           {props.buttonText}
         </TertiaryButton>

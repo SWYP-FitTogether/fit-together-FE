@@ -25,7 +25,7 @@ interface ICardProps {
 export function Card({ children }: ICardProps) {
   return (
     <CardContext value={{}}>
-      <div className="flex flex-col gap-4 w-full px-2 py-5 bg-gray-white border border-gray-200">
+      <div className="flex flex-col gap-4 w-full px-2 py-5 bg-gray-white border-b border-gray-200">
         {children}
       </div>
     </CardContext>
