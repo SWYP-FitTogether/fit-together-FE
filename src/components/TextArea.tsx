@@ -22,7 +22,7 @@ const TextArea = ({ type, helpText, className, ...props }: ITextAreaProps) => {
   const [focused, setFocused] = useState(false);
 
   return (
-    <div className="flex flex-col gap-0.5 w-full">
+    <div className="flex flex-col gap-0.5 w-full grow">
       <div
         className={cn(
           textAreaVariants({ type }),
