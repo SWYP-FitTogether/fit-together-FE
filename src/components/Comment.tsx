@@ -38,10 +38,10 @@ const Comment = ({
         </div>
 
         <button
-          className="w-fit p-2 text-gray-500 text-button-2 cursor-pointer hover:opacity-80 active:opacity-80"
+          className="w-fit p-2 text-gray-500 cursor-pointer hover:opacity-80 active:opacity-80"
           onClick={onAddCommentClick}
         >
-          답글달기
+          <p className="text-button-2">답글달기</p>
         </button>
       </div>
     </div>
