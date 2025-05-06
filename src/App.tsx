@@ -4,7 +4,7 @@ import { queryClient } from "./utils/queryClient";
 import BoardPage from "./pages/BoardPage";
 import Layout from "./pages/Layout";
 import PostDetailPage from "./pages/PostDetailPage";
-import PostCreate from "./pages/PostCreate";
+import PostCreatePage from "./pages/PostCreatePage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
         element: <BoardPage />
       },
       { path: "board/:postId", element: <PostDetailPage /> },
-      { path: "board/new", element: <PostCreate /> }
+      { path: "board/new", element: <PostCreatePage /> }
     ]
   }
 ]);
