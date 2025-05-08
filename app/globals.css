@@ -56,6 +56,10 @@
   --color-sub: #41dabb;
   --color-error: #ef5a5a;
 
+  --color-bk-opacity-20: rgba(17, 17, 25, 0.2);
+  --color-bk-opacity-50: rgba(17, 17, 25, 0.5);
+  --color-bk-opacity-70: rgba(17, 17, 25, 0.7);
+
   --radius-base: 8px;
 }
 
