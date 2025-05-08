@@ -3,7 +3,7 @@ import TertiaryButton from "./TertiaryButton";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col items-center gap-1 p-5">
+    <footer className="flex flex-col items-center gap-1 bg-gray-100 p-5">
       <div className="flex items-center gap-2">
         <TertiaryButton>로그아웃</TertiaryButton>
         <Divider orientation="vertical" className="h-4" />
