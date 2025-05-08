@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Label } from "./ui/label";
 import { ScrollArea } from "./ui/scroll-area";
 import { Select, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import * as SelectPrimitive from "@radix-ui/react-select";
@@ -57,9 +56,9 @@ const Dropdown = ({
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <Label htmlFor={id} className="h-[19px] text-caption-1 text-gray-600">
+        <label htmlFor={id} className="h-[19px] text-caption-1 text-gray-600">
           {label}
-        </Label>
+        </label>
       )}
       <Select {...props}>
         <SelectTrigger

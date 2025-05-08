@@ -48,7 +48,7 @@ const ProfileHeader = ({
         imgAlt={imgAlt}
       />
       <div className="flex grow items-center justify-between">
-        <div className="h-[39px]">
+        <div className="flex h-[39px] flex-col justify-center">
           <div className="flex gap-1">
             <span className="text-button-2 text-gray-black">{name}</span>
             <span className="text-caption-1 text-gray-600">LV. {level}</span>

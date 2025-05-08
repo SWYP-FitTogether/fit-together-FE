@@ -25,7 +25,7 @@ const SquareImg = ({
   return (
     <div
       className={cn(
-        "relative h-[72px] w-[72px] overflow-hidden rounded-base border border-gray-200",
+        "relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-base border border-gray-200",
         isLoading && "flex items-center justify-center bg-gray-100",
       )}
     >
