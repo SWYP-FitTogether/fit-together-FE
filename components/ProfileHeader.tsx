@@ -4,6 +4,12 @@ import { cn } from "@/lib/utils";
 import CircleImg from "./CircleImg";
 import HighfiveButton from "./HighfiveButton";
 import DotsIcon from "./icons/DotsIcon";
+import { ReactNode } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 interface IProfileHeaderProps
   extends Omit<React.ComponentProps<typeof CircleImg>, "size"> {
@@ -15,6 +21,7 @@ interface IProfileHeaderProps
   isMy?: boolean;
   isOwner?: boolean;
   onDotsClick?: () => void;
+  children?: ReactNode;
 }
 
 const ProfileHeader = ({
@@ -30,6 +37,7 @@ const ProfileHeader = ({
   isMy,
   isOwner,
   onDotsClick,
+  children,
 }: IProfileHeaderProps) => {
   return (
     <div className={cn("flex w-full items-center gap-2", className)}>
@@ -51,9 +59,14 @@ const ProfileHeader = ({
           {date && <p className="text-caption-2 text-gray-400">{date}</p>}
         </div>
         {isMy && (
-          <button className="cursor-pointer" onClick={onDotsClick}>
-            <DotsIcon />
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="relative cursor-pointer" onClick={onDotsClick}>
+                <DotsIcon />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>{children}</DropdownMenuContent>
+          </DropdownMenu>
         )}
       </div>
       {isIcon && <HighfiveButton variant="default" onClick={onIconClick} />}
