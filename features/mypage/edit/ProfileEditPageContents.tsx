@@ -25,7 +25,7 @@ const ProfileEditPageContents = () => {
         </RadioGroup>
       </div>
 
-      <Dropdown id="" items={[]} label="연령대" />
+      <Dropdown id="age" items={[]} label="연령대" />
 
       <div className="flex flex-col gap-0.5">
         <label className="h-[19px] text-caption-1 text-gray-600">관심사</label>
