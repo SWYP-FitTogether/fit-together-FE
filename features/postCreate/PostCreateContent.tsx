@@ -4,7 +4,6 @@ import Button from "@/components/Button";
 import Dropdown from "@/components/Dropdown";
 import TextArea from "@/components/TextArea";
 import TextInput from "@/components/TextInput";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const CATEGORY_LIST = [
@@ -16,10 +15,13 @@ const CATEGORY_LIST = [
   { value: "free", title: "자유" },
 ];
 
-const PostCreateContent = () => {
-  const searchParams = useSearchParams();
+interface IPostCreateContentProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+const PostCreateContent = ({ searchParams }: IPostCreateContentProps) => {
   const [category, setCategory] = useState(
-    searchParams.get("category") || CATEGORY_LIST[0].value,
+    (searchParams?.category as string) || CATEGORY_LIST[0].value,
   );
 
   function onCategoryChange(value: string) {
