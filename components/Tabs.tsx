@@ -41,6 +41,7 @@ function TabsList({
 }
 
 function TabsTrigger({
+  className,
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
   return (
@@ -49,6 +50,7 @@ function TabsTrigger({
       className={cn(
         "h-[46px] w-fit rounded-none border-transparent p-3 text-center text-button-1 text-gray-500",
         "data-[state=active]:border-b-2 data-[state=active]:border-gray-black data-[state=active]:text-gray-black",
+        className,
       )}
       {...props}
     />
