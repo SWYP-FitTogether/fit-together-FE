@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import CircleImg from "./CircleImg";
 import HighfiveButton from "./HighfiveButton";
+import DotsIcon from "./icons/DotsIcon";
 
 interface IProfileHeaderProps
   extends Omit<React.ComponentProps<typeof CircleImg>, "size"> {
@@ -11,6 +12,9 @@ interface IProfileHeaderProps
   onIconClick?: () => void;
   name: string;
   level: string | number;
+  isMy?: boolean;
+  isOwner?: boolean;
+  onDotsClick?: () => void;
 }
 
 const ProfileHeader = ({
@@ -23,6 +27,9 @@ const ProfileHeader = ({
   isLoading,
   imgSrc,
   imgAlt,
+  isMy,
+  isOwner,
+  onDotsClick,
 }: IProfileHeaderProps) => {
   return (
     <div className={cn("flex w-full items-center gap-2", className)}>
@@ -32,12 +39,22 @@ const ProfileHeader = ({
         imgSrc={imgSrc}
         imgAlt={imgAlt}
       />
-      <div className="flex h-[39px] grow flex-col justify-center">
-        <div className="flex gap-1">
-          <span className="text-button-2 text-gray-black">{name}</span>
-          <span className="text-caption-1 text-gray-600">LV. {level}</span>
+      <div className="flex grow items-center justify-between">
+        <div className="h-[39px]">
+          <div className="flex gap-1">
+            <span className="text-button-2 text-gray-black">{name}</span>
+            <span className="text-caption-1 text-gray-600">LV. {level}</span>
+            {isOwner && (
+              <span className="text-caption-2 text-gray-500">작성자</span>
+            )}
+          </div>
+          {date && <p className="text-caption-2 text-gray-400">{date}</p>}
         </div>
-        {date && <span className="text-caption-2 text-gray-400">{date}</span>}
+        {isMy && (
+          <button className="cursor-pointer" onClick={onDotsClick}>
+            <DotsIcon />
+          </button>
+        )}
       </div>
       {isIcon && <HighfiveButton variant="default" onClick={onIconClick} />}
     </div>
