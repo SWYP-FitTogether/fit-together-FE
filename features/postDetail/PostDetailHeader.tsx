@@ -5,7 +5,7 @@ const PostDetailHeader = () => {
   return (
     <div className="flex flex-col gap-2">
       <Tag tag="카테고리" />
-      <ProfileHeader name="닉네임" level={0} date="MM월 DD일" isIcon />
+      <ProfileHeader name="닉네임" level={0} date="MM월 DD일" isMy />
     </div>
   );
 };
