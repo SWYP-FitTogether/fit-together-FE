@@ -2,7 +2,6 @@
 
 import { cva } from "class-variance-authority";
 import { Input } from "./ui/input";
-import { Label } from "./ui/label";
 import { cn } from "@/lib/utils";
 import { InputHTMLAttributes, useState } from "react";
 
@@ -41,12 +40,9 @@ const TextInput = ({
     <div className="flex w-full flex-col gap-0.5">
       <div className="flex flex-col gap-1">
         {label && (
-          <Label
-            htmlFor={id}
-            className="py-[2.5px] text-caption-1 text-gray-600"
-          >
+          <label htmlFor={id} className="h-[19px] text-caption-1 text-gray-600">
             {label}
-          </Label>
+          </label>
         )}
         <Input
           id={id}
