@@ -3,12 +3,13 @@ import ProfileHeader from "@/components/ProfileHeader";
 import PostDetailAddComment from "./PostDetailAddComment";
 
 const COMMENTS = [
-  { id: 1, content: "정말 좋은 글이에요!", isReply: false },
+  { id: 1, content: "정말 좋은 글이에요!", isReply: false, isMy: true },
   { id: 2, content: "많은 도움이 됐습니다, 감사합니다.", isReply: false },
   {
     id: 3,
     content: "질문이 있는데요, 이 부분 좀 더 설명 가능할까요?",
     isReply: false,
+    isOwner: true,
   },
   { id: 4, content: "저도 궁금했어요!", isReply: true },
   { id: 5, content: "동의합니다. 저도 그렇게 생각해요.", isReply: false },
@@ -25,7 +26,13 @@ const PostDetailComments = () => {
           isReply={comment.isReply}
           comment={comment.content}
           profileHeader={
-            <ProfileHeader name="닉네임" level={0} date="MM월 DD일" />
+            <ProfileHeader
+              isMy={comment.isMy}
+              isOwner={comment.isOwner}
+              name="닉네임"
+              level={0}
+              date="MM월 DD일"
+            />
           }
         />
       ))}

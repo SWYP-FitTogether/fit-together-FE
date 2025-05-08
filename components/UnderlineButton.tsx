@@ -1,16 +1,18 @@
 "use client";
 
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ElementType, ReactNode } from "react";
 import NextIcon from "./icons/NextIcon";
 import { cn } from "@/lib/utils";
 
 interface IUnderlineButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
+  Icon?: ElementType;
   children: ReactNode;
 }
 
 const UnderlineButton = ({
   children,
+  Icon = NextIcon,
   className,
   ...props
 }: IUnderlineButtonProps) => {
@@ -23,7 +25,7 @@ const UnderlineButton = ({
       {...props}
     >
       <p className="text-button-2">{children}</p>
-      <NextIcon
+      <Icon
         className={cn(
           "h-4 w-4 text-gray-600",
           props.disabled && "text-gray-400",
