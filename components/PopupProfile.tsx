@@ -73,7 +73,7 @@ const PopupProfile = ({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="flex h-[305px] w-[335px] flex-col items-center gap-5 rounded-[12px] p-5 pt-11 [&>button]:hidden">
+      <DialogContent className="flex h-[313px] w-[335px] flex-col items-center gap-5 rounded-[12px] p-5 pt-[52px] [&>button]:hidden">
         <PopupProfileHeader name={name} level={level} />
         <PopupProfileInfo likeCount={likeCount} postCount={postCount} />
         <div className="flex w-full justify-end">
