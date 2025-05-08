@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import PostDetailActions from "@/features/postDetail/PostDetailActions";
 import PostDetailComments from "@/features/postDetail/PostDetailComments";
@@ -23,6 +24,7 @@ const PostDetailPage = () => {
 
           <PostDetailComments />
         </div>
+        <Footer />
       </ScrollArea>
     </div>
   );
