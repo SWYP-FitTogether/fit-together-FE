@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils";
 import CircleImg from "./CircleImg";
 import HighfiveButton from "./HighfiveButton";
 import DotsIcon from "./icons/DotsIcon";
-import { ReactNode } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import TrashIcon from "./icons/TrashIcon";
 
 interface IProfileHeaderProps
   extends Omit<React.ComponentProps<typeof CircleImg>, "size"> {
@@ -21,7 +21,7 @@ interface IProfileHeaderProps
   isMy?: boolean;
   isOwner?: boolean;
   onDotsClick?: () => void;
-  children?: ReactNode;
+  onDelete?: () => void;
 }
 
 const ProfileHeader = ({
@@ -37,7 +37,7 @@ const ProfileHeader = ({
   isMy,
   isOwner,
   onDotsClick,
-  children,
+  onDelete,
 }: IProfileHeaderProps) => {
   return (
     <div className={cn("flex w-full items-center gap-2", className)}>
@@ -65,7 +65,13 @@ const ProfileHeader = ({
                 <DotsIcon />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>{children}</DropdownMenuContent>
+            <DropdownMenuContent className="flex h-[58px] items-center justify-center rounded-base border border-gray-200">
+              <button className="cursor-pointer" onClick={onDelete}>
+                <p className="flex gap-3 text-body-1 text-error">
+                  삭제하기{<TrashIcon className="h-6 w-6 text-error" />}
+                </p>
+              </button>
+            </DropdownMenuContent>
           </DropdownMenu>
         )}
       </div>
