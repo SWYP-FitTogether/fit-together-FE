@@ -2,6 +2,7 @@ import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+  console.log("시작");
   const { searchParams } = new URL(req.url);
 
   const page = searchParams.get("page") || "0";
@@ -9,6 +10,8 @@ export async function GET(req: NextRequest) {
   const postId = searchParams.get("postId") || "";
   const token = searchParams.get("token") || "";
   try {
+    console.log("여긴 오나?");
+    console.log(page, size, postId, token);
     const res = await axios.get(
       `http://swyp.kro.kr:8080/api/posts/${postId}/comments`,
       {
@@ -22,6 +25,7 @@ export async function GET(req: NextRequest) {
         },
       },
     );
+    console.log("여기는 어때");
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (err) {
