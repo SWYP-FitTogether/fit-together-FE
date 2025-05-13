@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/Card";
 import { IBoardPostType } from "@/types/boardType";
+import { useRouter } from "next/navigation";
 
 interface IBoardPostCardProps extends IBoardPostType {
   name: string;
@@ -10,6 +11,7 @@ interface IBoardPostCardProps extends IBoardPostType {
 }
 
 const BoardPostCard = ({
+  id,
   name,
   level,
   imgSrc,
@@ -21,6 +23,8 @@ const BoardPostCard = ({
   commentCount,
   description,
 }: IBoardPostCardProps) => {
+  const router = useRouter();
+
   return (
     <Card>
       <Card.Header
@@ -29,11 +33,17 @@ const BoardPostCard = ({
         imgAlt="프로필 이미지"
         imgSrc={imgSrc}
       />
-      <Card.Content
-        title={title}
-        description={description}
-        imgAlt="대표 이미지"
-      />
+      <div
+        onClick={() => router.push(`/board/${id}`)}
+        className="cursor-pointer"
+      >
+        <Card.Content
+          title={title}
+          description={description}
+          imgAlt="대표 이미지"
+        />
+      </div>
+
       <Card.Footer
         category={category}
         time={time}

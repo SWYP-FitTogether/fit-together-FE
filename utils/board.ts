@@ -1,4 +1,9 @@
-import { IPostResponse, TCategory } from "@/types/boardType";
+import {
+  ICommentListResponse,
+  IPostDetailResponse,
+  IPostResponse,
+  TCategory,
+} from "@/types/boardType";
 import axios from "axios";
 import { createFetchError, getAccessToken } from "./axios";
 
@@ -26,6 +31,55 @@ export async function getPosts({
       },
     });
 
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "게시글 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function getPostDetail(id: number) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.get<IPostDetailResponse>(`/api/posts/${id}`, {
+      withCredentials: true,
+      params: {
+        id,
+        token,
+      },
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "게시글 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+interface IGetCommentsProps {
+  pageParam?: number;
+  postId: number;
+}
+
+export async function getComments({ pageParam, postId }: IGetCommentsProps) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.get<ICommentListResponse>(
+      `/api/posts/${postId}/comments`,
+      {
+        withCredentials: true,
+        params: {
+          page: pageParam,
+          size: 10,
+          postId,
+          token,
+        },
+      },
+    );
     return response.data;
   } catch (error: unknown) {
     throw createFetchError(

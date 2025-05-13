@@ -21,7 +21,7 @@ export const useKakaoLogin = () => {
     mutationFn: login,
     onSuccess: async (data) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      setAuth(data.accessToken);
+      setAuth(data.accessToken, data.nickname);
       navigate.push("/onboard");
     },
     onError: (err) => {

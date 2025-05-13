@@ -68,6 +68,7 @@ const BoardTabsContent = ({ value }: IBoardTabsContentProps) => {
           page.content.map((post) => (
             <BoardPostCard
               key={post.id}
+              id={post.id}
               name={post.author.nickname}
               imgSrc={post.author.profileImageUrl}
               level={post.author.level}

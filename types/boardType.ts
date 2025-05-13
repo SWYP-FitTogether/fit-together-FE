@@ -1,4 +1,5 @@
 export interface IBoardPostType {
+  id: number;
   title: string;
   description: string;
   category: string;
@@ -39,6 +40,47 @@ export interface IPost {
 
 export interface IPostResponse {
   content: IPost[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+}
+
+export interface IPostDetailResponse {
+  id: number;
+  title: string;
+  content: string;
+  category: TCategory;
+  categoryDisplayName: string;
+  createdAt: string;
+  updatedAt: string;
+  likeCount: number;
+  viewCount: number;
+  commentCount: number;
+  author: IPostAuthor;
+  imageUrls: string[];
+  isBookmarked: boolean;
+}
+
+export interface IComment {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string | null;
+  authorId: number;
+  authorNickname: string;
+  authorProfileImageUrl: string;
+  authorLevel: number;
+  parentId: number | null;
+  replyCount: number;
+  replies: IComment[];
+  deleted: boolean;
+}
+
+export interface ICommentListResponse {
+  content: IComment[];
   page: number;
   size: number;
   totalElements: number;

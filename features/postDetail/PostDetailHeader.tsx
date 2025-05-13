@@ -1,11 +1,34 @@
+"use client";
+
 import ProfileHeader from "@/components/ProfileHeader";
 import Tag from "@/components/Tag";
+import { useAuthStore } from "@/store/useAuthStore";
+import { IPostAuthor } from "@/types/boardType";
 
-const PostDetailHeader = () => {
+interface IPostDetailHeaderProps extends IPostAuthor {
+  category: string;
+  date: string;
+}
+
+const PostDetailHeader = ({
+  nickname,
+  category,
+  date,
+  level,
+  profileImageUrl,
+}: IPostDetailHeaderProps) => {
+  const { nickname: name } = useAuthStore();
+
   return (
     <div className="flex flex-col gap-2">
-      <Tag tag="카테고리" />
-      <ProfileHeader name="닉네임" level={0} date="MM월 DD일" isMy />
+      <Tag tag={category} />
+      <ProfileHeader
+        name={nickname}
+        level={level}
+        date={date}
+        imgSrc={profileImageUrl}
+        isMy={name === nickname}
+      />
     </div>
   );
 };
