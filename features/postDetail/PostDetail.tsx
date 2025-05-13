@@ -41,7 +41,7 @@ const PostDetail = ({ postId }: IPostDetailProps) => {
               isBookmarked={data.isBookmarked}
             />
 
-            <PostDetailComments authorId={data.author.id} />
+            <PostDetailComments authorId={data.author.id} postId={postId} />
           </div>
         </>
       )}

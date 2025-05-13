@@ -4,10 +4,11 @@ import { CommentItem } from "./CommentItem";
 
 interface IPostDetailCommentsProps {
   authorId: number;
+  postId: string;
 }
 
-const PostDetailComments = ({ authorId }: IPostDetailCommentsProps) => {
-  const { data, fetchNextPage, hasNextPage } = useInfiniteComments(4);
+const PostDetailComments = ({ authorId, postId }: IPostDetailCommentsProps) => {
+  const { data, fetchNextPage, hasNextPage } = useInfiniteComments(+postId);
   return (
     <div className="flex flex-col gap-3 p-5">
       {data?.pages.map((page) =>
