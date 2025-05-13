@@ -116,3 +116,21 @@ export async function postComment({
     throw createFetchError(error, "댓글 작성 과정에서 오류가 발생하였습니다!");
   }
 }
+
+export async function toggleBookmark({ postId }: { postId: number }) {
+  const token = getAccessToken();
+  try {
+    const response = await axios.post<IAddCommentResponse>(
+      `/api/posts/${postId}/bookmark`,
+      { token, postId },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "북마크 과정에서 오류가 발생하였습니다!");
+  }
+}

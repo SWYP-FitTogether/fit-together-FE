@@ -5,6 +5,7 @@ import {
   getPostDetail,
   getPosts,
   postComment,
+  toggleBookmark,
 } from "@/utils/board";
 import { queryClient } from "@/utils/queryClient";
 import { FetchErrorType } from "@/types/type";
@@ -57,6 +58,20 @@ export function usePostComment(postId: number) {
       queryClient.invalidateQueries({
         queryKey: ["comments", postId],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId],
+      });
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function useToggleBookmark(postId: number) {
+  return useMutation<unknown, FetchErrorType, { postId: number }>({
+    mutationFn: toggleBookmark,
+    onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: ["posts", postId],
       });
