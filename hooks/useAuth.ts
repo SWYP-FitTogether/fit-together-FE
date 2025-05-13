@@ -1,7 +1,11 @@
 import { useAuthStore } from "@/store/useAuthStore";
-import { IKakaoLoginRequest, IKakaoLoginResponse } from "@/types/auth";
+import {
+  IKakaoLoginRequest,
+  IKakaoLoginResponse,
+  IOnboardInfo,
+} from "@/types/auth";
 import { FetchErrorType } from "@/types/type";
-import { login } from "@/utils/auth";
+import { login, setOnboard } from "@/utils/auth";
 import { queryClient } from "@/utils/queryClient";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -19,6 +23,30 @@ export const useKakaoLogin = () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       setAuth(data.accessToken);
       navigate.push("/onboard");
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+
+  return {
+    mutate,
+    isError,
+    isPending,
+  };
+};
+
+export const useOnboad = () => {
+  const navigate = useRouter();
+  const { mutate, isError, isPending } = useMutation<
+    IKakaoLoginResponse,
+    FetchErrorType,
+    IOnboardInfo
+  >({
+    mutationFn: setOnboard,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      navigate.push("/board");
     },
     onError: (err) => {
       throw Error(err.info?.message);

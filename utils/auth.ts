@@ -1,6 +1,10 @@
-import { IKakaoLoginRequest, IKakaoLoginResponse } from "@/types/auth";
+import {
+  IKakaoLoginRequest,
+  IKakaoLoginResponse,
+  IOnboardInfo,
+} from "@/types/auth";
 import axios from "axios";
-import { createFetchError } from "./axios";
+import { createFetchError, getAccessToken } from "./axios";
 
 export async function login(data: IKakaoLoginRequest) {
   try {
@@ -16,5 +20,26 @@ export async function login(data: IKakaoLoginRequest) {
     return response.data;
   } catch (error: unknown) {
     throw createFetchError(error, "로그인 과정에서 오류가 발생하였습니다!");
+  }
+}
+
+export async function setOnboard(data: IOnboardInfo) {
+  try {
+    const acccessToken = getAccessToken();
+
+    const response = await axios.put(
+      `/api/onboard`,
+      { data, acccessToken },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "온보딩 과정에서 오류가 발생하였습니다!");
   }
 }

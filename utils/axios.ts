@@ -1,6 +1,10 @@
 import { FetchErrorType } from "@/types/type";
 import axios from "axios";
 
+export function getAccessToken() {
+  return localStorage.getItem("accessToken");
+}
+
 export function createFetchError(
   error: unknown,
   fallbackMsg: string,

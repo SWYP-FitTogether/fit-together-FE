@@ -9,3 +9,25 @@ export interface IKakaoLoginResponse {
   nickname: string;
   newUser: boolean;
 }
+
+export type TGender = "MALE" | "FEMALE";
+export type TAgeRange =
+  | "TEENS"
+  | "TWENTIES"
+  | "THIRTIES"
+  | "FORTIES"
+  | "FIFTIES"
+  | "SIXTIES_PLUS";
+export type TInterests =
+  | "WEIGHT_MANAGEMENT"
+  | "DIET_MANAGEMENT"
+  | "EXERCISE"
+  | "HEALTH_INFO"
+  | "MEDICATION"
+  | "COMMUNITY";
+
+export interface IOnboardInfo {
+  gender: TGender;
+  ageRange: TAgeRange;
+  interests: TInterests[];
+}
