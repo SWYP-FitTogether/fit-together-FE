@@ -1,19 +1,26 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/Tabs";
-import BoardTabsContent from "./BoardTabsContent";
+"use client";
 
-const TABS_LIST = [
-  { value: "all", title: "전체" },
-  { value: "challenge", title: "챌린지" },
-  { value: "review", title: "후기" },
-  { value: "infoShare", title: "정보공유" },
-  { value: "qna", title: "Q&A" },
-  { value: "discussion", title: "토론" },
-  { value: "free", title: "자유" },
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
+import BoardTabsContent from "./BoardTabsContent";
+import { TCategory } from "@/types/boardType";
+import { useState } from "react";
+
+const TABS_LIST: { value: TCategory; title: string }[] = [
+  { value: "ALL", title: "전체" },
+  { value: "CHALLENGE", title: "챌린지" },
+  { value: "REVIEW", title: "후기" },
+  { value: "INFORMATION", title: "정보공유" },
+  { value: "QNA", title: "Q&A" },
+  { value: "DISCUSSION", title: "토론" },
 ];
 
 const BoardTabs = () => {
+  const [selectedTab, setSelectedTab] = useState<TCategory>("ALL");
   return (
-    <Tabs defaultValue="all">
+    <Tabs
+      value={selectedTab}
+      onValueChange={(v) => setSelectedTab(v as TCategory)}
+    >
       <TabsList>
         {TABS_LIST.map((tab) => (
           <TabsTrigger value={tab.value} key={tab.value}>
@@ -22,7 +29,9 @@ const BoardTabs = () => {
         ))}
       </TabsList>
       {TABS_LIST.map((tab) => (
-        <BoardTabsContent key={tab.value} value={tab.value} />
+        <TabsContent key={tab.value} value={tab.value}>
+          {selectedTab === tab.value && <BoardTabsContent value={tab.value} />}
+        </TabsContent>
       ))}
     </Tabs>
   );
