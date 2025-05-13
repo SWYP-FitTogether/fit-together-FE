@@ -6,11 +6,13 @@ import { IBoardPostType } from "@/types/boardType";
 interface IBoardPostCardProps extends IBoardPostType {
   name: string;
   level: number;
+  imgSrc?: string;
 }
 
 const BoardPostCard = ({
   name,
   level,
+  imgSrc,
   category,
   title,
   time,
@@ -21,7 +23,12 @@ const BoardPostCard = ({
 }: IBoardPostCardProps) => {
   return (
     <Card>
-      <Card.Header name={name} level={level} imgAlt="프로필 이미지" />
+      <Card.Header
+        name={name}
+        level={level}
+        imgAlt="프로필 이미지"
+        imgSrc={imgSrc}
+      />
       <Card.Content
         title={title}
         description={description}

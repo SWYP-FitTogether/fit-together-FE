@@ -69,11 +69,15 @@ const BoardTabsContent = ({ value }: IBoardTabsContentProps) => {
             <BoardPostCard
               key={post.id}
               name={post.author.nickname}
+              imgSrc={post.author.profileImageUrl}
               level={post.author.level}
-              highfiveCount={0}
+              category={post.categoryDisplayName}
+              title={post.title}
               time={post.createdAt}
+              likeCount={post.likeCount}
+              highfiveCount={0}
+              commentCount={post.commentCount}
               description={post.contentSummary}
-              {...post}
             />
           )),
         )}
