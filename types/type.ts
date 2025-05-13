@@ -10,3 +10,11 @@ export interface IDropdownItem {
 }
 
 export type ParamsType = "postId";
+
+export interface FetchErrorType extends Error {
+  code?: number;
+  info?: {
+    errorCode: string;
+    message: string;
+  };
+}
