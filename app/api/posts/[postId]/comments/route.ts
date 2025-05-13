@@ -19,7 +19,6 @@ export async function GET(req: NextRequest) {
         params: {
           page,
           size,
-          postId,
         },
       },
     );
