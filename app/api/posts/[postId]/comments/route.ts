@@ -29,3 +29,30 @@ export async function GET(req: NextRequest) {
     return new Response("댓글 호출 중 오류가 발생했습니다", { status: 500 });
   }
 }
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    console.log(body);
+    const token = body.token;
+    const reqData = { content: body.comment, parentId: body.parentId };
+
+    const res = await axios.post(
+      `http://swyp.kro.kr:8080/api/posts/${body.postId}/comments`,
+      reqData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      },
+    );
+
+    const data = res.data;
+    return NextResponse.json(data, { status: res.status });
+  } catch (error) {
+    console.error(error);
+    return new Response("Internal Server Error", { status: 500 });
+  }
+}

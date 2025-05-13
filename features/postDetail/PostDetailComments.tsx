@@ -13,7 +13,12 @@ const PostDetailComments = ({ authorId, postId }: IPostDetailCommentsProps) => {
     <div className="flex flex-col gap-3 p-5">
       {data?.pages.map((page) =>
         page.content.map((comment) => (
-          <CommentItem key={comment.id} comment={comment} authorId={authorId} />
+          <CommentItem
+            key={comment.id}
+            postId={postId}
+            comment={comment}
+            authorId={authorId}
+          />
         )),
       )}
       {hasNextPage && (
@@ -25,7 +30,7 @@ const PostDetailComments = ({ authorId, postId }: IPostDetailCommentsProps) => {
         </button>
       )}
 
-      <PostDetailAddComment />
+      <PostDetailAddComment postId={+postId} />
     </div>
   );
 };

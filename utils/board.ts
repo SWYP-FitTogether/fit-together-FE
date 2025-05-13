@@ -1,4 +1,5 @@
 import {
+  IAddCommentResponse,
   ICommentListResponse,
   IPostDetailResponse,
   IPostResponse,
@@ -62,6 +63,7 @@ export async function getPostDetail(id: number) {
 
 interface IGetCommentsProps {
   pageParam?: number;
+
   postId: number;
 }
 
@@ -86,5 +88,31 @@ export async function getComments({ pageParam, postId }: IGetCommentsProps) {
       error,
       "게시글 로딩 과정에서 오류가 발생하였습니다!",
     );
+  }
+}
+
+export async function postComment({
+  comment,
+  parentId,
+  postId,
+}: {
+  comment: string;
+  postId: number;
+  parentId?: number;
+}) {
+  const token = getAccessToken();
+  try {
+    const response = await axios.post<IAddCommentResponse>(
+      `/api/posts/${postId}/comments`,
+      { comment, token, postId, parentId },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "댓글 작성 과정에서 오류가 발생하였습니다!");
   }
 }

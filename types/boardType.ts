@@ -88,3 +88,18 @@ export interface ICommentListResponse {
   first: boolean;
   last: boolean;
 }
+
+export interface IAddCommentResponse {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string | null;
+  authorId: number;
+  authorNickname: string;
+  authorProfileImageUrl: string;
+  authorLevel: number;
+  parentId: number | null;
+  replyCount: number;
+  replies: IComment[];
+  deleted: boolean;
+}

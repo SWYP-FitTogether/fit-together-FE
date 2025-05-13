@@ -8,6 +8,7 @@ interface ICommentProps {
   isReply?: boolean;
   comment: string;
   profileHeader: ReactNode;
+  posReply?: boolean;
   onLikeClick?: () => void;
   onAddCommentClick?: () => void;
 }
@@ -15,6 +16,7 @@ interface ICommentProps {
 const Comment = ({
   isReply,
   comment,
+  posReply = false,
   onLikeClick,
   onAddCommentClick,
   profileHeader,
@@ -39,12 +41,14 @@ const Comment = ({
           </button>
         </div>
 
-        <button
-          className="w-fit cursor-pointer p-2 text-gray-500 hover:opacity-80 active:opacity-80"
-          onClick={onAddCommentClick}
-        >
-          <p className="text-button-2">답글달기</p>
-        </button>
+        {posReply && (
+          <button
+            className="w-fit cursor-pointer p-2 text-gray-500 hover:opacity-80 active:opacity-80"
+            onClick={onAddCommentClick}
+          >
+            <p className="text-button-2">답글달기</p>
+          </button>
+        )}
       </div>
     </div>
   );
