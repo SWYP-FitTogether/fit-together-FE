@@ -25,7 +25,8 @@ export async function GET(req: NextRequest) {
     );
 
     return NextResponse.json(res.data, { status: res.status });
-  } catch {
+  } catch (err) {
+    console.log("서버쪽", err);
     return new Response("댓글 호출 중 오류가 발생했습니다", { status: 500 });
   }
 }
