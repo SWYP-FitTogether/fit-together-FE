@@ -6,11 +6,12 @@ import {
 } from "@/types/auth";
 import { FetchErrorType } from "@/types/type";
 import { login, setOnboard } from "@/utils/auth";
-import { queryClient } from "@/utils/queryClient";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useKakaoLogin = () => {
+  const queryClient = useQueryClient();
+
   const navigate = useRouter();
   const { setAuth } = useAuthStore();
   const { mutate, isError, isPending } = useMutation<
@@ -37,6 +38,8 @@ export const useKakaoLogin = () => {
 };
 
 export const useOnboad = () => {
+  const queryClient = useQueryClient();
+
   const navigate = useRouter();
   const { mutate, isError, isPending } = useMutation<
     IKakaoLoginResponse,

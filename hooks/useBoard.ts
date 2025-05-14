@@ -1,4 +1,9 @@
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { IAddCommentResponse, TCategory } from "@/types/boardType";
 import {
   getComments,
@@ -7,7 +12,6 @@ import {
   postComment,
   toggleBookmark,
 } from "@/utils/board";
-import { queryClient } from "@/utils/queryClient";
 import { FetchErrorType } from "@/types/type";
 
 export function useInfinitePosts(
@@ -48,6 +52,8 @@ export function useInfiniteComments(postId: number) {
 }
 
 export function usePostComment(postId: number) {
+  const queryClient = useQueryClient();
+
   return useMutation<
     IAddCommentResponse,
     FetchErrorType,
@@ -69,6 +75,8 @@ export function usePostComment(postId: number) {
 }
 
 export function useToggleBookmark(postId: number) {
+  const queryClient = useQueryClient();
+
   return useMutation<unknown, FetchErrorType, { postId: number }>({
     mutationFn: toggleBookmark,
     onSuccess: async () => {
