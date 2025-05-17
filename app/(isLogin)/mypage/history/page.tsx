@@ -2,7 +2,7 @@
 
 import { SubNavigation } from "@/components/Navigation";
 import MyHistoryPageTabs from "@/features/mypage/history/MyHistoryPageTabs";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const MyHistoryPage = () => {
   const router = useRouter();

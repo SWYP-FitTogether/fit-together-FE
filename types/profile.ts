@@ -1,3 +1,5 @@
+import { IPost } from "./boardType";
+
 export interface IGetProfileResponse {
   id: number;
   nickname: string;
@@ -17,12 +19,19 @@ export interface PointHistoryItem {
   positive: boolean;
 }
 
-export interface IGetPointHistoryResponse {
-  content: PointHistoryItem[];
+export interface IPageInfo {
   page: number;
   size: number;
   totalElements: number;
   totalPages: number;
   first: boolean;
   last: boolean;
+}
+
+export interface IGetPointHistoryResponse extends IPageInfo {
+  content: PointHistoryItem[];
+}
+
+export interface IGetPostsHistoryResponse extends IPageInfo {
+  content: IPost[];
 }

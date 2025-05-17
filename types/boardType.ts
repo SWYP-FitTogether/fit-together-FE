@@ -35,6 +35,7 @@ export interface IPost {
   likeCount: number;
   viewCount: number;
   commentCount: number;
+  highfiveCount: number;
   author: IPostAuthor;
 }
 

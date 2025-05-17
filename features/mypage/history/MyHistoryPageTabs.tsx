@@ -2,6 +2,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/Tabs";
 import MyHistoryPagePostCard from "@/features/mypage/history/MyHistoryPagePostCard";
 import MyHistoryPageCommentCard from "./MyHistoryPageCommentCard";
 import MyHistoryTabContentWrapper from "./MyHistoryTabContentWrapper";
+import PostsHistoryContent from "./PostsHistoryContent";
+import { useState } from "react";
 
 const TABS = [
   { value: "myposts", title: "내 글" },
@@ -9,9 +11,16 @@ const TABS = [
   { value: "scraps", title: "스크랩" },
 ];
 
+type TabsType = "myposts" | "mycomments" | "scraps";
+
 const MyHistoryPageTabs = () => {
+  const [selectedTab, setSelectedTab] = useState<TabsType>("myposts");
+
   return (
-    <Tabs defaultValue="myposts">
+    <Tabs
+      defaultValue={selectedTab}
+      onValueChange={(v) => setSelectedTab(v as TabsType)}
+    >
       <TabsList className="w-full px-5">
         {TABS.map((tab) => (
           <TabsTrigger key={tab.value} value={tab.value} className="w-1/3">
@@ -19,21 +28,7 @@ const MyHistoryPageTabs = () => {
           </TabsTrigger>
         ))}
       </TabsList>
-
-      <MyHistoryTabContentWrapper value="myposts">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <MyHistoryPagePostCard
-            key={item}
-            title="타이틀을 입력해 주세요타이틀을 입력해 주세요타이틀을 입력해 주세요타이틀을 입력해 주세요"
-            description="내용을 입력해 주세요내용을 입력해 주세요내용을 입력해 주세요내용을 입력해 주세요"
-            category="카테고리"
-            time="시간"
-            commentCount={0}
-            highfiveCount={0}
-            likeCount={0}
-          />
-        ))}
-      </MyHistoryTabContentWrapper>
+      {selectedTab === "myposts" && <PostsHistoryContent />}
 
       <MyHistoryTabContentWrapper value="mycomments">
         {[1, 2, 3, 4, 5, 6].map((item) => (
@@ -44,7 +39,6 @@ const MyHistoryPageTabs = () => {
           />
         ))}
       </MyHistoryTabContentWrapper>
-
       <MyHistoryTabContentWrapper value="scraps">
         {[1, 2, 3, 4, 5, 6].map((item) => (
           <MyHistoryPagePostCard
