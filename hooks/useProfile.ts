@@ -1,4 +1,5 @@
 import {
+  getBookmarks,
   getCommentsHistory,
   getPointHistory,
   getPostsHistory,
@@ -40,6 +41,18 @@ export function useGetCommentsHistory() {
   return useInfiniteQuery({
     queryKey: ["profile", "comments"],
     queryFn: ({ pageParam }) => getCommentsHistory(pageParam),
+    getNextPageParam: (lastPage) => {
+      const nextPage = lastPage.page + 1;
+      return lastPage.last ? undefined : nextPage;
+    },
+    initialPageParam: 0,
+  });
+}
+
+export function useGetBookmarks() {
+  return useInfiniteQuery({
+    queryKey: ["profile", "bookmarks"],
+    queryFn: ({ pageParam }) => getBookmarks(pageParam),
     getNextPageParam: (lastPage) => {
       const nextPage = lastPage.page + 1;
       return lastPage.last ? undefined : nextPage;

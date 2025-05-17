@@ -39,3 +39,7 @@ export interface IGetPostsHistoryResponse extends IPageInfo {
 export interface IGetCommentsHistoryResponse extends IPageInfo {
   content: IComment[];
 }
+
+export interface IGetBookmarksResponse extends IPageInfo {
+  content: IPost[];
+}
