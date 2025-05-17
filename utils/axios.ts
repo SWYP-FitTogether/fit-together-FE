@@ -19,7 +19,6 @@ axios.interceptors.response.use(
 
         const newAccessToken = res.data.accessToken;
         localStorage.setItem("accessToken", newAccessToken);
-        console.log(newAccessToken);
 
         if (newAccessToken) {
           axios.defaults.headers.common["Authorization"] =

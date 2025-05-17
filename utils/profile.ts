@@ -94,10 +94,7 @@ export async function getCommentsHistory(pageParam?: number) {
 
     return response.data;
   } catch (error: unknown) {
-    throw createFetchError(
-      error,
-      "게시글 로딩 과정에서 오류가 발생하였습니다!",
-    );
+    throw createFetchError(error, "댓글 로딩 과정에서 오류가 발생하였습니다!");
   }
 }
 
@@ -120,7 +117,32 @@ export async function getBookmarks(pageParam?: number) {
   } catch (error: unknown) {
     throw createFetchError(
       error,
-      "게시글 로딩 과정에서 오류가 발생하였습니다!",
+      "북마크 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+export async function postUserImg({ file }: { file: File | null }) {
+  if (!file) return;
+
+  try {
+    const token = getAccessToken();
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("token", token || "");
+
+    const response = await axios.post(`/api/profile/me/img`, formData, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "북마크 로딩 과정에서 오류가 발생하였습니다!",
     );
   }
 }

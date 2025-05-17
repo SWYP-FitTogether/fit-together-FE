@@ -15,10 +15,11 @@ import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import UnderlineButton from "./UnderlineButton";
 import UploadIcon from "./icons/UploadIcon";
 import Button from "./Button";
+import { useChangeProfileImg } from "@/hooks/useProfile";
 
 interface IPopupProfileUploadHeaderProps {
   selectedImg: ProfileImgType | null;
-  selfSelectImg: string | null;
+  selfSelectImg: string | null | undefined;
 }
 
 function PopupProfileUploadHeader({
@@ -70,7 +71,7 @@ function PopupProfileUploadContent({
 }
 
 interface IPopupProfileUploadFooterProps {
-  onPreview: (img: string) => void;
+  onPreview: (img: string, file: File) => void;
   onSubmit: () => void;
 }
 
@@ -92,7 +93,7 @@ function PopupProfileUploadFooter({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        onPreview(reader.result as string);
+        onPreview(reader.result as string, file);
       };
       reader.readAsDataURL(file);
     }
@@ -119,29 +120,48 @@ function PopupProfileUploadFooter({
 
 interface IPopupProfileUploadProps {
   profileImgs: ProfileImgType[];
+  defaultImg?: string;
   children: ReactNode;
 }
 
 const PopupProfileUpload = ({
   profileImgs,
+  defaultImg,
   children,
 }: IPopupProfileUploadProps) => {
   const [selectedImg, setSelectedImg] = useState<ProfileImgType | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null | undefined>(defaultImg);
+  const [img, setImg] = useState<File | null>(null);
+  const { mutate } = useChangeProfileImg();
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   function handleSelectImg(img: ProfileImgType) {
     setSelectedImg(img);
     setPreview(null);
   }
 
-  function handleSelfSelectImg(img: string) {
+  function handleSelfSelectImg(img: string, file: File) {
+    const MAX_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      alert("이미지 파일은 5MB 이하만 업로드할 수 있습니다.");
+      return;
+    }
     setPreview(img);
+    setImg(file);
     setSelectedImg(null);
   }
 
   function handleSubmit() {
-    const img = preview || selectedImg;
-    console.log(img);
+    if (img) {
+      mutate(
+        { file: img },
+        {
+          onSuccess: () => {
+            closeRef.current?.click();
+          },
+        },
+      );
+    }
   }
 
   return (
@@ -167,9 +187,12 @@ const PopupProfileUpload = ({
         <DialogTitle className="hidden" />
         <DialogDescription className="hidden" />
         <DialogClose asChild>
-          <div className="absolute top-2 right-2 flex h-11 w-11 cursor-pointer items-center justify-center">
+          <button
+            ref={closeRef}
+            className="absolute top-2 right-2 flex h-11 w-11 cursor-pointer items-center justify-center"
+          >
             <CloseIcon className="h-6 w-6 text-gray-600" />
-          </div>
+          </button>
         </DialogClose>
       </DialogContent>
     </Dialog>

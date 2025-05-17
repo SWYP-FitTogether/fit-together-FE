@@ -1,11 +1,14 @@
+import { FetchErrorType } from "@/types/type";
 import {
   getBookmarks,
   getCommentsHistory,
   getPointHistory,
   getPostsHistory,
   getProfile,
+  postUserImg,
 } from "@/utils/profile";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { queryClient } from "@/utils/queryClient";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 export function useGetProfile() {
   return useQuery({
     queryFn: getProfile,
@@ -60,3 +63,15 @@ export function useGetBookmarks() {
     initialPageParam: 0,
   });
 }
+
+export const useChangeProfileImg = () => {
+  return useMutation<unknown, FetchErrorType, { file: File | null }>({
+    mutationFn: postUserImg,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+};

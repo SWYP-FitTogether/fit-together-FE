@@ -14,9 +14,12 @@ const MyPageProfile = () => {
     <div className="flex flex-col items-center p-5">
       <div className="flex flex-col items-center gap-2">
         <div className="flex h-fit w-[72px] flex-col gap-2">
-          <PopupProfileUpload profileImgs={[{ id: "1" }]}>
+          <PopupProfileUpload
+            profileImgs={[{ id: "1" }]}
+            defaultImg={data?.profileImageUrl}
+          >
             <button className="cursor-pointer">
-              <CircleImg size="L" />
+              <CircleImg size="L" imgSrc={data?.profileImageUrl} />
             </button>
           </PopupProfileUpload>
           <div className="flex flex-col items-center gap-0.5">
