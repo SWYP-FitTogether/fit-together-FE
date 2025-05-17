@@ -1,11 +1,15 @@
+"use client";
+
 import CircleImg from "@/components/CircleImg";
 import { Divider } from "@/components/Divider";
 import PopupProfileUpload from "@/components/PopupProfileUpload";
 import ProfileInfo from "@/components/ProfileInfo";
 import ProgressBar from "@/components/ProgressBar";
+import { useGetProfile } from "@/hooks/useProfile";
 import React from "react";
 
 const MyPageProfile = () => {
+  const { data } = useGetProfile();
   return (
     <div className="flex flex-col items-center p-5">
       <div className="flex flex-col items-center gap-2">
@@ -16,12 +20,18 @@ const MyPageProfile = () => {
             </button>
           </PopupProfileUpload>
           <div className="flex flex-col items-center gap-0.5">
-            <p className="text-button-1 text-gray-black">닉네임</p>
-            <span className="text-caption-1 text-gray-600">LV. 0</span>
+            <p className="text-button-1 text-gray-black">{data?.nickname}</p>
+            <span className="text-caption-1 text-gray-600">
+              LV. {data?.level}
+            </span>
           </div>
         </div>
 
-        <ProgressBar max={200} value={70} withIndicator />
+        <ProgressBar
+          max={data?.totalPointsForNextLevel || 0}
+          value={data?.points || 0}
+          withIndicator
+        />
       </div>
 
       <div className="flex w-full gap-2 p-5">
