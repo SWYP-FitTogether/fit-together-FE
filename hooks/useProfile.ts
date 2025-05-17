@@ -1,3 +1,4 @@
+import { IEditProfileInfoRequest } from "@/types/profile";
 import { FetchErrorType } from "@/types/type";
 import {
   getBookmarks,
@@ -6,9 +7,11 @@ import {
   getPostsHistory,
   getProfile,
   postUserImg,
+  putProfileInfo,
 } from "@/utils/profile";
 import { queryClient } from "@/utils/queryClient";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 export function useGetProfile() {
   return useQuery({
     queryFn: getProfile,
@@ -69,6 +72,21 @@ export const useChangeProfileImg = () => {
     mutationFn: postUserImg,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+};
+
+export const useChangeProfileInfo = () => {
+  const navigate = useRouter();
+
+  return useMutation<unknown, FetchErrorType, IEditProfileInfoRequest>({
+    mutationFn: putProfileInfo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      navigate.push("/mypage");
     },
     onError: (err) => {
       throw Error(err.info?.message);

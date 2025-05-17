@@ -1,3 +1,4 @@
+import { IOnboardInfo } from "./auth";
 import { IComment, IPost } from "./boardType";
 
 export interface IGetProfileResponse {
@@ -42,4 +43,8 @@ export interface IGetCommentsHistoryResponse extends IPageInfo {
 
 export interface IGetBookmarksResponse extends IPageInfo {
   content: IPost[];
+}
+
+export interface IEditProfileInfoRequest extends IOnboardInfo {
+  nickname: string;
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createFetchError, getAccessToken } from "./axios";
 import {
+  IEditProfileInfoRequest,
   IGetBookmarksResponse,
   IGetCommentsHistoryResponse,
   IGetPointHistoryResponse,
@@ -144,5 +145,26 @@ export async function postUserImg({ file }: { file: File | null }) {
       error,
       "북마크 로딩 과정에서 오류가 발생하였습니다!",
     );
+  }
+}
+
+export async function putProfileInfo(data: IEditProfileInfoRequest) {
+  try {
+    const token = getAccessToken();
+
+    const response = await axios.put(
+      `/api/profile/me/onboarding`,
+      { data, token },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "온보딩 과정에서 오류가 발생하였습니다!");
   }
 }

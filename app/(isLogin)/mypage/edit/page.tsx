@@ -4,10 +4,48 @@ import Button from "@/components/Button";
 import { SubNavigation } from "@/components/Navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ProfileEditPageContents from "@/features/mypage/edit/ProfileEditPageContents";
+import { useChangeProfileInfo } from "@/hooks/useProfile";
+import { TInterests } from "@/types/auth";
+import { IEditProfileInfoRequest } from "@/types/profile";
 import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 
 const EditProfilePage = () => {
   const router = useRouter();
+  const { mutate } = useChangeProfileInfo();
+
+  const [value, setValue] = useState<Partial<IEditProfileInfoRequest>>({
+    nickname: "",
+    ageRange: undefined,
+    gender: undefined,
+    interests: [],
+  });
+
+  const handleChange = useCallback(
+    <K extends keyof IEditProfileInfoRequest>(
+      key: K,
+      val: IEditProfileInfoRequest[K],
+    ) => {
+      setValue((prev) => ({
+        ...prev,
+        [key]: val,
+      }));
+    },
+    [],
+  );
+
+  const toggleInterest = (interest: TInterests) => {
+    setValue((prev) => {
+      const interests = prev.interests ?? [];
+      const isSelected = interests.includes(interest);
+      return {
+        ...prev,
+        interests: isSelected
+          ? interests.filter((i) => i !== interest)
+          : [...interests, interest],
+      };
+    });
+  };
   return (
     <div>
       <SubNavigation
@@ -19,9 +57,26 @@ const EditProfilePage = () => {
 
       <div className="h-[calc(100dvh-60px)]">
         <ScrollArea className="flex h-[calc(100dvh-176px)] flex-col gap-5">
-          <ProfileEditPageContents />
+          <ProfileEditPageContents
+            value={value}
+            onChange={handleChange}
+            onChangeInterest={toggleInterest}
+          />
         </ScrollArea>
-        <Button size="L" variant="primary">
+        <Button
+          size="L"
+          variant="primary"
+          onClick={() => {
+            if (
+              value.nickname &&
+              value.interests &&
+              value.gender &&
+              value.ageRange
+            ) {
+              mutate(value as IEditProfileInfoRequest);
+            }
+          }}
+        >
           수정하기
         </Button>
       </div>
