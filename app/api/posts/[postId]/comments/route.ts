@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   const token = searchParams.get("token") || "";
   try {
     const res = await axios.get(
-      `http://swyp.kro.kr:8080/api/posts/${postId}/comments`,
+      `https://swyp.kro.kr//api/posts/${postId}/comments`,
       {
         withCredentials: true,
         headers: {
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     const reqData = { content: body.comment, parentId: body.parentId };
 
     const res = await axios.post(
-      `http://swyp.kro.kr:8080/api/posts/${body.postId}/comments`,
+      `https://swyp.kro.kr/api/posts/${body.postId}/comments`,
       reqData,
       {
         headers: {

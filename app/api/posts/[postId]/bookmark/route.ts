@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const token = body.token;
 
     const res = await axios.post(
-      `http://swyp.kro.kr:8080/api/posts/${body.postId}/bookmark`,
+      `https://swyp.kro.kr/api/posts/${body.postId}/bookmark`,
       {},
       {
         headers: {

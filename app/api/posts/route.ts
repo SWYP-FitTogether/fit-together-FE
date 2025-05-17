@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   const category = searchParams.get("category") || "";
   const token = searchParams.get("token") || "";
   try {
-    const res = await axios.get("http://swyp.kro.kr:8080/api/posts", {
+    const res = await axios.get("https://swyp.kro.kr/api/posts", {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,

@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   const token = searchParams.get("token") || "";
   const id = searchParams.get("id") || "";
   try {
-    const res = await axios.get(`http://swyp.kro.kr:8080/api/posts/${id}`, {
+    const res = await axios.get(`https://swyp.kro.kr/api/posts/${id}`, {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
