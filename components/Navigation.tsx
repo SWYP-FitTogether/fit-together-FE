@@ -1,13 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import ProfileHeader from "./ProfileHeader";
 import Tag from "./Tag";
 import SearchIcon from "./icons/SearchIcon";
 import MenuIcon from "./icons/MenuIcon";
 import BackIcon from "./icons/BackIcon";
 import TertiaryButton from "./TertiaryButton";
+import MenuDropdown from "./MenuDropdown";
 
 interface INavigationProps {
   className?: string;
@@ -43,14 +44,19 @@ interface IBaseProps {
   onTagClick?: () => void;
   onSearchClick?: () => void;
   onMenuClick?: () => void;
+  page: "board" | "mypage";
 }
 
 type MainNavigationProps = IBaseProps & (IMainProps | IMypageProps);
 
 function MainNavigation(props: MainNavigationProps) {
-  const { type, onMenuClick, onSearchClick, onTagClick } = props;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { type, onSearchClick, onTagClick } = props;
+  const handleMenuClick = () => {
+    setMenuOpen((prev) => !prev);
+  };
   return (
-    <Navigation>
+    <Navigation className="relative">
       {type === "main" && (
         <ProfileHeader
           className="w-fit"
@@ -73,11 +79,14 @@ function MainNavigation(props: MainNavigationProps) {
         </button>
         <button
           className="flex h-11 w-11 cursor-pointer items-center justify-center"
-          onClick={onMenuClick}
+          onClick={handleMenuClick}
         >
           <MenuIcon className="h-6 w-6" />
         </button>
       </div>
+      {menuOpen && (
+        <MenuDropdown active={props.page} onClose={() => setMenuOpen(false)} />
+      )}
     </Navigation>
   );
 }
