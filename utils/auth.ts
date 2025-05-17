@@ -55,3 +55,23 @@ export async function setOnboard(data: IOnboardInfo) {
     throw createFetchError(error, "온보딩 과정에서 오류가 발생하였습니다!");
   }
 }
+
+export async function skipOnboard() {
+  const token = getAccessToken();
+  try {
+    const response = await axios.post(
+      `/api/onboard/skip`,
+      { token },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "온보딩 스킵 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
