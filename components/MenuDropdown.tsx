@@ -1,15 +1,14 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react"; // motion/react 꼭 확인!
-import Link from "next/link";
+import { ReactNode } from "react";
 
 interface IMenuDropdownProps {
-  active: "board" | "mypage";
   onClose: () => void;
+  children: ReactNode;
 }
 
-const MenuDropdown = ({ active, onClose }: IMenuDropdownProps) => {
+const MenuDropdown = ({ onClose, children }: IMenuDropdownProps) => {
   return (
     <AnimatePresence>
       <motion.div
@@ -30,26 +29,7 @@ const MenuDropdown = ({ active, onClose }: IMenuDropdownProps) => {
         className="absolute top-[60px] right-0 z-50 w-full bg-white py-5 shadow-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <ul className="flex flex-col items-center gap-2 text-headline-2">
-          <Link
-            href={"/board"}
-            className={cn(
-              "w-fit cursor-pointer py-2 text-gray-500",
-              active === "board" && "border-b-2 border-black text-gray-black",
-            )}
-          >
-            게시판
-          </Link>
-          <Link
-            href={"/mypage"}
-            className={cn(
-              "w-fit cursor-pointer py-2 text-gray-500",
-              active === "mypage" && "border-b-2 border-black text-gray-black",
-            )}
-          >
-            마이페이지
-          </Link>
-        </ul>
+        {children}
       </motion.div>
     </AnimatePresence>
   );

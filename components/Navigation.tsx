@@ -9,6 +9,7 @@ import MenuIcon from "./icons/MenuIcon";
 import BackIcon from "./icons/BackIcon";
 import TertiaryButton from "./TertiaryButton";
 import MenuDropdown from "./MenuDropdown";
+import Link from "next/link";
 
 interface INavigationProps {
   className?: string;
@@ -85,7 +86,30 @@ function MainNavigation(props: MainNavigationProps) {
         </button>
       </div>
       {menuOpen && (
-        <MenuDropdown active={props.page} onClose={() => setMenuOpen(false)} />
+        <MenuDropdown onClose={() => setMenuOpen(false)}>
+          <ul className="flex flex-col items-center gap-2 text-headline-2">
+            <Link
+              href={"/board"}
+              className={cn(
+                "w-fit cursor-pointer py-2 text-gray-500",
+                props.page === "board" &&
+                  "border-b-2 border-black text-gray-black",
+              )}
+            >
+              게시판
+            </Link>
+            <Link
+              href={"/mypage"}
+              className={cn(
+                "w-fit cursor-pointer py-2 text-gray-500",
+                props.page === "mypage" &&
+                  "border-b-2 border-black text-gray-black",
+              )}
+            >
+              마이페이지
+            </Link>
+          </ul>
+        </MenuDropdown>
       )}
     </Navigation>
   );
