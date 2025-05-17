@@ -23,6 +23,18 @@ export async function login(data: IKakaoLoginRequest) {
   }
 }
 
+export async function logout() {
+  try {
+    const response = await axios.post(`/api/auth/logout`, null, {
+      withCredentials: true,
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "로그아웃 과정에서 오류가 발생하였습니다!");
+  }
+}
+
 export async function setOnboard(data: IOnboardInfo) {
   try {
     const acccessToken = getAccessToken();
