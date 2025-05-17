@@ -32,6 +32,7 @@ function Navigation({ className, children }: INavigationProps) {
 interface IMainProps {
   type: "main";
   level: string | number;
+  imgSrc?: string;
   onProfileClick?: () => void;
 }
 
@@ -62,6 +63,7 @@ function MainNavigation(props: MainNavigationProps) {
         <ProfileHeader
           className="w-fit"
           name=""
+          imgSrc={props.imgSrc}
           level={props.level}
           onClick={props.onProfileClick}
         />

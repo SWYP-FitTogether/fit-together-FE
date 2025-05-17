@@ -8,7 +8,12 @@ const BoardNavigation = () => {
   const { data } = useGetProfile();
   return (
     <>
-      <MainNavigation type="main" level={data?.level || 0} page="board" />
+      <MainNavigation
+        type="main"
+        imgSrc={data?.profileImageUrl}
+        level={data?.level || 0}
+        page="board"
+      />
       <div className="flex w-full items-center justify-center py-2">
         <ProgressBar
           withIndicator
