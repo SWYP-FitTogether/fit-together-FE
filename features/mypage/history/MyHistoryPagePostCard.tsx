@@ -18,6 +18,7 @@ interface IBaseProps {
   commentCount: number;
   highfiveCount: number;
   likeCount: number;
+  onContentClick?: () => void;
 }
 
 type MyHistoryPagePostCardProps = IBaseProps & (IHeaderProps | INoHeaderProps);
@@ -46,7 +47,13 @@ const MyHistoryPagePostCard = (props: MyHistoryPagePostCardProps) => {
           onIconClick={props.onIconClick}
         />
       )}
-      <Card.Content title={title} description={description} />
+      <div className="cursor-pointer">
+        <Card.Content
+          title={title}
+          description={description}
+          onClick={props.onContentClick}
+        />
+      </div>
       <Card.Footer
         category={category}
         time={time}

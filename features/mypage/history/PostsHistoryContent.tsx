@@ -4,9 +4,11 @@ import React, { useEffect, useRef } from "react";
 import MyHistoryTabContentWrapper from "./MyHistoryTabContentWrapper";
 import MyHistoryPagePostCard from "./MyHistoryPagePostCard";
 import { useGetPostsHistory } from "@/hooks/useProfile";
+import { useRouter } from "next/navigation";
 
 const PostsHistoryContent = () => {
   const observerRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   const {
     data,
@@ -46,11 +48,12 @@ const PostsHistoryContent = () => {
             key={item.id}
             title={item.title}
             description={item.contentSummary}
-            category={item.category}
+            category={item.categoryDisplayName}
             time={item.createdAt}
             commentCount={item.commentCount}
             highfiveCount={item.highfiveCount}
             likeCount={item.likeCount}
+            onContentClick={() => router.push(`/board/${item.id}`)}
           />
         )),
       )}

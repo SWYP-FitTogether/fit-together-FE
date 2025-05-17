@@ -2,9 +2,11 @@ import { useGetBookmarks } from "@/hooks/useProfile";
 import React, { useEffect, useRef } from "react";
 import MyHistoryTabContentWrapper from "./MyHistoryTabContentWrapper";
 import MyHistoryPagePostCard from "./MyHistoryPagePostCard";
+import { useRouter } from "next/navigation";
 
 const BookmarksContent = () => {
   const observerRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   const {
     data,
@@ -52,6 +54,7 @@ const BookmarksContent = () => {
             likeCount={item.likeCount}
             highfiveCount={item.highfiveCount}
             commentCount={item.commentCount}
+            onContentClick={() => router.push(`/board/${item.id}`)}
           />
         )),
       )}
