@@ -13,11 +13,22 @@ axios.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await axios.post("/api/auth/refresh", null, {
+        const res = await axios.post("/api/auth/refresh", null, {
           withCredentials: true,
         });
 
-        return axios(originalRequest);
+        const newAccessToken = res.data.accessToken;
+        localStorage.setItem("accessToken", newAccessToken);
+        console.log(newAccessToken);
+
+        if (newAccessToken) {
+          axios.defaults.headers.common["Authorization"] =
+            `Bearer ${newAccessToken}`;
+
+          originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+
+          return axios(originalRequest);
+        }
       } catch (refreshError) {
         console.error("리프레시 실패", refreshError);
         await axios.post("/api/auth/logout", null, {

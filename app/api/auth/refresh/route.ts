@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const cookie = req.headers.get("cookie") || "";
-    console.log("Sending cookies:", cookie);
 
     const res = await axios.post(
       "https://swyp.kro.kr/api/auth/refresh-token",
@@ -19,8 +18,26 @@ export async function POST(req: NextRequest) {
     );
 
     const setCookieHeader = res.headers["set-cookie"];
-    const response = NextResponse.json({ success: true });
+    let accessToken: string | null = null;
 
+    if (Array.isArray(setCookieHeader)) {
+      for (const cookie of setCookieHeader) {
+        if (cookie.startsWith("access_token=")) {
+          accessToken = cookie
+            .split(";")[0]
+            .replace("access_token=", "")
+            .trim();
+          break;
+        }
+      }
+    }
+
+    const response = NextResponse.json({
+      success: true,
+      accessToken,
+    });
+
+    // 클라이언트에도 쿠키 반영
     if (Array.isArray(setCookieHeader)) {
       setCookieHeader.forEach((cookie) => {
         response.headers.append("Set-Cookie", cookie);
