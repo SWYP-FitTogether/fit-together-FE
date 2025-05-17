@@ -1,4 +1,9 @@
-import { getPointHistory, getPostsHistory, getProfile } from "@/utils/profile";
+import {
+  getCommentsHistory,
+  getPointHistory,
+  getPostsHistory,
+  getProfile,
+} from "@/utils/profile";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 export function useGetProfile() {
   return useQuery({
@@ -23,6 +28,18 @@ export function useGetPostsHistory() {
   return useInfiniteQuery({
     queryKey: ["profile", "posts"],
     queryFn: ({ pageParam }) => getPostsHistory(pageParam),
+    getNextPageParam: (lastPage) => {
+      const nextPage = lastPage.page + 1;
+      return lastPage.last ? undefined : nextPage;
+    },
+    initialPageParam: 0,
+  });
+}
+
+export function useGetCommentsHistory() {
+  return useInfiniteQuery({
+    queryKey: ["profile", "comments"],
+    queryFn: ({ pageParam }) => getCommentsHistory(pageParam),
     getNextPageParam: (lastPage) => {
       const nextPage = lastPage.page + 1;
       return lastPage.last ? undefined : nextPage;

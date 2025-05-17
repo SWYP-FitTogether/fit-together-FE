@@ -77,7 +77,7 @@ export interface IComment {
   parentId: number | null;
   replyCount: number;
   replies: IComment[];
-  deleted: boolean;
+  isDeleted: boolean;
 }
 
 export interface ICommentListResponse {

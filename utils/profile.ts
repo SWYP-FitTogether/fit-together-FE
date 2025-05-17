@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createFetchError, getAccessToken } from "./axios";
 import {
+  IGetCommentsHistoryResponse,
   IGetPointHistoryResponse,
   IGetPostsHistoryResponse,
   IGetProfileResponse,
@@ -56,6 +57,30 @@ export async function getPostsHistory(pageParam?: number) {
     const token = getAccessToken();
     const response = await axios.post<IGetPostsHistoryResponse>(
       `/api/profile/me/posts`,
+      {
+        page: pageParam,
+        size: 10,
+        token,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "게시글 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function getCommentsHistory(pageParam?: number) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetCommentsHistoryResponse>(
+      `/api/profile/me/comments`,
       {
         page: pageParam,
         size: 10,

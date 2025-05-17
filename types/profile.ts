@@ -1,4 +1,4 @@
-import { IPost } from "./boardType";
+import { IComment, IPost } from "./boardType";
 
 export interface IGetProfileResponse {
   id: number;
@@ -34,4 +34,8 @@ export interface IGetPointHistoryResponse extends IPageInfo {
 
 export interface IGetPostsHistoryResponse extends IPageInfo {
   content: IPost[];
+}
+
+export interface IGetCommentsHistoryResponse extends IPageInfo {
+  content: IComment[];
 }

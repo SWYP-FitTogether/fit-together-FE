@@ -1,9 +1,9 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/Tabs";
 import MyHistoryPagePostCard from "@/features/mypage/history/MyHistoryPagePostCard";
-import MyHistoryPageCommentCard from "./MyHistoryPageCommentCard";
 import MyHistoryTabContentWrapper from "./MyHistoryTabContentWrapper";
 import PostsHistoryContent from "./PostsHistoryContent";
 import { useState } from "react";
+import CommentsHistoryContent from "./CommentsHistoryContent";
 
 const TABS = [
   { value: "myposts", title: "내 글" },
@@ -29,16 +29,8 @@ const MyHistoryPageTabs = () => {
         ))}
       </TabsList>
       {selectedTab === "myposts" && <PostsHistoryContent />}
+      {selectedTab === "mycomments" && <CommentsHistoryContent />}
 
-      <MyHistoryTabContentWrapper value="mycomments">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <MyHistoryPageCommentCard
-            key={item}
-            title="타이틀을 입력해 주세요타이틀을 입력해 주세요타이틀을 입력해 주세요"
-            comment="댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용"
-          />
-        ))}
-      </MyHistoryTabContentWrapper>
       <MyHistoryTabContentWrapper value="scraps">
         {[1, 2, 3, 4, 5, 6].map((item) => (
           <MyHistoryPagePostCard
