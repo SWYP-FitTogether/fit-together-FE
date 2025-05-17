@@ -18,6 +18,7 @@ const PostCreateNavigation = () => {
         title="글 작성하기"
         buttonText="등록"
         disabled={!active}
+        page="board"
       />
     </>
   );

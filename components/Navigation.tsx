@@ -145,15 +145,20 @@ interface IOnboardSuccessProps {
 
 interface ISubBaseProps {
   type: "write" | "mypageDetail" | "onboard" | "onboardSuccess";
+  page: "board" | "mypage" | "onboard";
 }
 
 type SubNavigationProps = ISubBaseProps &
   (IWriteProps | IMypageDetailProps | IOnboardProps | IOnboardSuccessProps);
 
 function SubNavigation(props: SubNavigationProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const handleMenuClick = () => {
+    setMenuOpen((prev) => !prev);
+  };
   const { type } = props;
   return (
-    <Navigation className={cn(type === "write" && "bg-gray-100")}>
+    <Navigation className={cn("relative", type === "write" && "bg-gray-100")}>
       {!(type === "onboardSuccess") && (
         <>
           <button
@@ -180,10 +185,36 @@ function SubNavigation(props: SubNavigationProps) {
       {type === "mypageDetail" && (
         <button
           className="flex h-11 w-11 cursor-pointer items-center justify-center"
-          onClick={props.onMenuClick}
+          onClick={handleMenuClick}
         >
           <MenuIcon className="h-6 w-6" />
         </button>
+      )}
+      {menuOpen && props.page !== "onboard" && (
+        <MenuDropdown onClose={() => setMenuOpen(false)}>
+          <ul className="flex flex-col items-center gap-2 text-headline-2">
+            <Link
+              href={"/board"}
+              className={cn(
+                "w-fit cursor-pointer py-2 text-gray-500",
+                props.page === "board" &&
+                  "border-b-2 border-black text-gray-black",
+              )}
+            >
+              게시판
+            </Link>
+            <Link
+              href={"/mypage"}
+              className={cn(
+                "w-fit cursor-pointer py-2 text-gray-500",
+                props.page === "mypage" &&
+                  "border-b-2 border-black text-gray-black",
+              )}
+            >
+              마이페이지
+            </Link>
+          </ul>
+        </MenuDropdown>
       )}
     </Navigation>
   );
