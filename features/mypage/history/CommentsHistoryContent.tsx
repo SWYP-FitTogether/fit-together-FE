@@ -43,7 +43,8 @@ const CommentsHistoryContent = () => {
         page.content.map((item) => (
           <MyHistoryPageCommentCard
             key={item.id}
-            title={"타이틀"}
+            postId={item.postId}
+            title={item.postTitle}
             comment={item.content}
           />
         )),

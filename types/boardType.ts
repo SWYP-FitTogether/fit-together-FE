@@ -71,15 +71,17 @@ export interface IComment {
   content: string;
   createdAt: string;
   updatedAt: string | null;
-  authorEmail: string;
+  isDeleted: boolean;
   authorId: number;
+  authorEmail: string;
   authorNickname: string;
   authorProfileImageUrl: string;
   authorLevel: number;
+  postId: number;
+  postTitle: string;
   parentId: number | null;
   replyCount: number;
   replies: IComment[];
-  isDeleted: boolean;
 }
 
 export interface ICommentListResponse {
