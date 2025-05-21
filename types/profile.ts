@@ -1,4 +1,4 @@
-import { IOnboardInfo } from "./auth";
+import { IOnboardInfo, TAgeRange, TGender, TInterests } from "./auth";
 import { IComment, IPost } from "./boardType";
 
 export interface IGetProfileResponse {
@@ -47,4 +47,10 @@ export interface IGetBookmarksResponse extends IPageInfo {
 
 export interface IEditProfileInfoRequest extends IOnboardInfo {
   nickname: string;
+}
+
+export interface IGetOnboardingInfoResponse {
+  gender: TGender;
+  ageRange: TAgeRange;
+  interests: TInterests[];
 }

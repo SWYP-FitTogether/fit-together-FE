@@ -4,6 +4,7 @@ import {
   IEditProfileInfoRequest,
   IGetBookmarksResponse,
   IGetCommentsHistoryResponse,
+  IGetOnboardingInfoResponse,
   IGetPointHistoryResponse,
   IGetPostsHistoryResponse,
   IGetProfileResponse,
@@ -122,6 +123,7 @@ export async function getBookmarks(pageParam?: number) {
     );
   }
 }
+
 export async function postUserImg({ file }: { file: File | null }) {
   if (!file) return;
 
@@ -166,5 +168,27 @@ export async function putProfileInfo(data: IEditProfileInfoRequest) {
     return response.data;
   } catch (error: unknown) {
     throw createFetchError(error, "온보딩 과정에서 오류가 발생하였습니다!");
+  }
+}
+
+export async function getOnboardingInfo() {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetOnboardingInfoResponse>(
+      `/api/profile/me/onboarding`,
+      {
+        token,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "온보딩 정보 로딩 과정에서 오류가 발생하였습니다!",
+    );
   }
 }

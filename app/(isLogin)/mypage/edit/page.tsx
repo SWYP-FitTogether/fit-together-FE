@@ -4,22 +4,29 @@ import Button from "@/components/Button";
 import { SubNavigation } from "@/components/Navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ProfileEditPageContents from "@/features/mypage/edit/ProfileEditPageContents";
-import { useChangeProfileInfo } from "@/hooks/useProfile";
+import {
+  useChangeProfileInfo,
+  useGetOnboardingInfo,
+  useGetProfile,
+} from "@/hooks/useProfile";
 import { TInterests } from "@/types/auth";
 import { IEditProfileInfoRequest } from "@/types/profile";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const EditProfilePage = () => {
   const router = useRouter();
   const { mutate } = useChangeProfileInfo();
+  const { data: nickName } = useGetProfile();
+  const { data } = useGetOnboardingInfo();
 
   const [value, setValue] = useState<Partial<IEditProfileInfoRequest>>({
-    nickname: "",
-    ageRange: undefined,
-    gender: undefined,
-    interests: [],
+    nickname: nickName?.nickname,
+    ageRange: data?.ageRange,
+    gender: data?.gender,
+    interests: data?.interests,
   });
+  console.log(value);
 
   const handleChange = useCallback(
     <K extends keyof IEditProfileInfoRequest>(
@@ -46,6 +53,19 @@ const EditProfilePage = () => {
       };
     });
   };
+
+  useEffect(() => {
+    if (nickName || data) {
+      setValue((prev) => ({
+        ...prev,
+        nickname: nickName?.nickname,
+        ageRange: data?.ageRange,
+        gender: data?.gender,
+        interests: data?.interests,
+      }));
+    }
+  }, [nickName, data]);
+
   return (
     <div>
       <SubNavigation
@@ -57,11 +77,13 @@ const EditProfilePage = () => {
 
       <div className="h-[calc(100dvh-60px)]">
         <ScrollArea className="flex h-[calc(100dvh-176px)] flex-col gap-5">
-          <ProfileEditPageContents
-            value={value}
-            onChange={handleChange}
-            onChangeInterest={toggleInterest}
-          />
+          {data && (
+            <ProfileEditPageContents
+              value={value}
+              onChange={handleChange}
+              onChangeInterest={toggleInterest}
+            />
+          )}
         </ScrollArea>
         <Button
           size="L"

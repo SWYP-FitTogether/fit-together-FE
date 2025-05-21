@@ -2,8 +2,6 @@ import { RadioButton, RadioGroup } from "@/components/RadioGroup";
 import TextInput from "@/components/TextInput";
 import CheckBox from "@/components/CheckBox";
 import Dropdown from "@/components/Dropdown";
-import { useGetProfile } from "@/hooks/useProfile";
-import { useEffect } from "react";
 import { IEditProfileInfoRequest } from "@/types/profile";
 import { TAgeRange, TGender, TInterests } from "@/types/auth";
 
@@ -39,14 +37,6 @@ const ProfileEditPageContents = ({
   onChange,
   onChangeInterest,
 }: IProfileEditPageContentsProps) => {
-  const { data } = useGetProfile();
-
-  useEffect(() => {
-    if (data) {
-      onChange("nickname", data.nickname);
-    }
-  }, [data, onChange]);
-
   return (
     <div className="flex flex-col gap-5 p-5">
       <TextInput
@@ -60,6 +50,7 @@ const ProfileEditPageContents = ({
         <label className="text-caption-1 text-gray-600">성별</label>
         <RadioGroup
           className="flex-row gap-2"
+          value={value.gender}
           onValueChange={(v) => onChange("gender", v as TGender)}
         >
           <RadioButton id="male" value="MALE" label="남성" />
@@ -70,6 +61,7 @@ const ProfileEditPageContents = ({
       <Dropdown
         id="age"
         items={ageRangeOptions}
+        value={value.ageRange}
         label="연령대"
         placeholder="연령대를 선택해주세요"
         onValueChange={(v) => onChange("ageRange", v as TAgeRange)}

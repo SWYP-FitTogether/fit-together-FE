@@ -25,3 +25,25 @@ export async function PUT(req: NextRequest) {
     return new Response("Internal Server Error", { status: 500 });
   }
 }
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const token = body.token;
+    const res = await axios.get(
+      `https://swyp.kro.kr/api/users/me/onboarding-info`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      },
+    );
+
+    const data = res.data;
+    return NextResponse.json(data, { status: res.status });
+  } catch (error) {
+    console.error(error);
+    return new Response("Internal Server Error", { status: 500 });
+  }
+}

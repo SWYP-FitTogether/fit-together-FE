@@ -3,6 +3,7 @@ import { FetchErrorType } from "@/types/type";
 import {
   getBookmarks,
   getCommentsHistory,
+  getOnboardingInfo,
   getPointHistory,
   getPostsHistory,
   getProfile,
@@ -12,6 +13,7 @@ import {
 import { queryClient } from "@/utils/queryClient";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+
 export function useGetProfile() {
   return useQuery({
     queryFn: getProfile,
@@ -91,5 +93,12 @@ export const useChangeProfileInfo = () => {
     onError: (err) => {
       throw Error(err.info?.message);
     },
+  });
+};
+
+export const useGetOnboardingInfo = () => {
+  return useQuery({
+    queryFn: getOnboardingInfo,
+    queryKey: ["onboarding"],
   });
 };
