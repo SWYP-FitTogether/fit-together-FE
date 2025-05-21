@@ -2,6 +2,7 @@ import {
   IAddCommentResponse,
   ICommentListResponse,
   IPostDetailResponse,
+  IPostHifiveResponse,
   IPostPostRequest,
   IPostResponse,
   TCategory,
@@ -150,8 +151,44 @@ export async function postComment({
 export async function toggleBookmark({ postId }: { postId: number }) {
   const token = getAccessToken();
   try {
-    const response = await axios.post<IAddCommentResponse>(
+    const response = await axios.post(
       `/api/posts/${postId}/bookmark`,
+      { token, postId },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "북마크 과정에서 오류가 발생하였습니다!");
+  }
+}
+
+export async function toggleLike({ postId }: { postId: number }) {
+  const token = getAccessToken();
+  try {
+    const response = await axios.post(
+      `/api/posts/${postId}/like`,
+      { token, postId },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "북마크 과정에서 오류가 발생하였습니다!");
+  }
+}
+
+export async function addHighfive({ postId }: { postId: number }) {
+  const token = getAccessToken();
+  try {
+    const response = await axios.post<IPostHifiveResponse>(
+      `/api/posts/${postId}/highfive`,
       { token, postId },
       {
         headers: { "Content-Type": "application/json" },

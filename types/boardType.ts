@@ -115,3 +115,8 @@ export interface IPostPostRequest {
   category: TCategory;
   images: File[];
 }
+
+export interface IPostHifiveResponse {
+  success: boolean;
+  remainingCount: number;
+}

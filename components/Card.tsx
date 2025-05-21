@@ -42,6 +42,7 @@ interface ICardHeaderProps {
   imgSrc?: string;
   imgAlt?: string;
   imgIsLoading?: boolean;
+  highfiveCount: number;
   onIconClick?: () => void;
 }
 
@@ -51,6 +52,7 @@ function CardHeader({
   imgSrc,
   imgAlt,
   imgIsLoading,
+  highfiveCount,
   onIconClick,
 }: ICardHeaderProps) {
   useCardContext();
@@ -62,6 +64,7 @@ function CardHeader({
       imgAlt={imgAlt}
       isLoading={imgIsLoading}
       onIconClick={onIconClick}
+      highfiveCount={highfiveCount}
       isIcon
     />
   );

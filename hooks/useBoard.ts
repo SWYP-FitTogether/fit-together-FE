@@ -1,19 +1,23 @@
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import {
   IAddCommentResponse,
+  IPostHifiveResponse,
   IPostPostRequest,
   TCategory,
 } from "@/types/boardType";
 import {
+  addHighfive,
   getComments,
   getPostDetail,
   getPosts,
   postComment,
   postPost,
   toggleBookmark,
+  toggleLike,
 } from "@/utils/board";
 import { queryClient } from "@/utils/queryClient";
 import { FetchErrorType } from "@/types/type";
+import { useRouter } from "next/navigation";
 
 export function useInfinitePosts(
   category: TCategory,
@@ -87,16 +91,50 @@ export function useToggleBookmark(postId: number) {
   });
 }
 
+export function useToggleLike(postId: number) {
+  return useMutation<unknown, FetchErrorType, { postId: number }>({
+    mutationFn: toggleLike,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function usePostHighfive(postId: number) {
+  return useMutation<IPostHifiveResponse, FetchErrorType, { postId: number }>({
+    mutationFn: addHighfive,
+    onSuccess: async (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+      console.log(data);
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
 export function usePostPost() {
+  const router = useRouter();
   return useMutation<unknown, FetchErrorType, IPostPostRequest>({
     mutationFn: postPost,
     onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
-      queryClient.invalidateQueries({
-        queryKey: ["posts"],
-      });
+      router.back();
     },
     onError: (err) => {
       throw Error(err.info?.message);

@@ -22,6 +22,7 @@ interface IProfileHeaderProps
   isOwner?: boolean;
   onDotsClick?: () => void;
   onDelete?: () => void;
+  highfiveCount: number;
 }
 
 const ProfileHeader = ({
@@ -36,6 +37,7 @@ const ProfileHeader = ({
   imgAlt,
   isMy,
   isOwner,
+  highfiveCount,
   onDotsClick,
   onDelete,
 }: IProfileHeaderProps) => {
@@ -75,7 +77,17 @@ const ProfileHeader = ({
           </DropdownMenu>
         )}
       </div>
-      {isIcon && <HighfiveButton variant="default" onClick={onIconClick} />}
+      {isIcon && highfiveCount === 0 && (
+        <HighfiveButton variant={"default"} onClick={onIconClick} />
+      )}
+      {isIcon && highfiveCount > 0 && (
+        <HighfiveButton
+          variant={"click"}
+          count={highfiveCount}
+          maxcount={20}
+          onClick={onIconClick}
+        />
+      )}
     </div>
   );
 };

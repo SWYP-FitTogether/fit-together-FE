@@ -45,6 +45,7 @@ const MyHistoryPagePostCard = (props: MyHistoryPagePostCardProps) => {
           imgAlt={props.imgAlt}
           imgIsLoading={props.imgIsLoading}
           onIconClick={props.onIconClick}
+          highfiveCount={props.highfiveCount}
         />
       )}
       <div className="cursor-pointer">

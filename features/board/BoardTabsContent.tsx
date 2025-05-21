@@ -24,6 +24,7 @@ const BoardTabsContent = ({ value }: IBoardTabsContentProps) => {
     isLoading,
     isError,
   } = useInfinitePosts(value, sort);
+  console.log(data);
 
   useEffect(() => {
     if (!observerRef.current || !hasNextPage) return;
@@ -76,7 +77,7 @@ const BoardTabsContent = ({ value }: IBoardTabsContentProps) => {
               title={post.title}
               time={post.createdAt}
               likeCount={post.likeCount}
-              highfiveCount={0}
+              highfiveCount={post.highfiveCount}
               commentCount={post.commentCount}
               description={post.contentSummary}
             />
