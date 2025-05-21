@@ -1,12 +1,17 @@
 "use client";
 
 import { SubNavigation } from "@/components/Navigation";
+import { usePostPost } from "@/hooks/useBoard";
+import { IPostPostRequest } from "@/types/boardType";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
-const PostCreateNavigation = () => {
-  const [active] = useState(false);
+interface IPostCreateNavigationProps {
+  data: IPostPostRequest;
+}
+
+const PostCreateNavigation = ({ data }: IPostCreateNavigationProps) => {
   const router = useRouter();
+  const { mutate } = usePostPost();
 
   return (
     <>
@@ -14,10 +19,11 @@ const PostCreateNavigation = () => {
         onBack={() => {
           router.back();
         }}
+        onButtonClick={() => mutate(data)}
         type="write"
         title="글 작성하기"
         buttonText="등록"
-        disabled={!active}
+        disabled={!(data.title && data.content && data.category)}
         page="board"
       />
     </>

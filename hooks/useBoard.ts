@@ -1,10 +1,15 @@
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
-import { IAddCommentResponse, TCategory } from "@/types/boardType";
+import {
+  IAddCommentResponse,
+  IPostPostRequest,
+  TCategory,
+} from "@/types/boardType";
 import {
   getComments,
   getPostDetail,
   getPosts,
   postComment,
+  postPost,
   toggleBookmark,
 } from "@/utils/board";
 import { queryClient } from "@/utils/queryClient";
@@ -74,6 +79,23 @@ export function useToggleBookmark(postId: number) {
     onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: ["posts", postId],
+      });
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function usePostPost() {
+  return useMutation<unknown, FetchErrorType, IPostPostRequest>({
+    mutationFn: postPost,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
       });
     },
     onError: (err) => {

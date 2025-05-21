@@ -2,6 +2,7 @@ import {
   IAddCommentResponse,
   ICommentListResponse,
   IPostDetailResponse,
+  IPostPostRequest,
   IPostResponse,
   TCategory,
 } from "@/types/boardType";
@@ -37,6 +38,35 @@ export async function getPosts({
     throw createFetchError(
       error,
       "게시글 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function postPost(data: IPostPostRequest) {
+  try {
+    const token = getAccessToken();
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+    formData.append("category", data.category);
+
+    data.images.forEach((file) => {
+      formData.append("images", file);
+    });
+
+    const response = await axios.post(`/api/posts`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      params: { token },
+      withCredentials: true,
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "북마크 로딩 과정에서 오류가 발생하였습니다!",
     );
   }
 }

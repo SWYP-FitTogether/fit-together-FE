@@ -28,3 +28,23 @@ export async function GET(req: NextRequest) {
     return new Response("게시글 호출 중 오류가 발생했습니다", { status: 500 });
   }
 }
+
+export async function POST(req: NextRequest) {
+  try {
+    const formData = await req.formData();
+    const token = req.nextUrl.searchParams.get("token");
+
+    const res = await axios.post(`https://swyp.kro.kr/api/posts`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
+
+    return NextResponse.json(res.data, { status: res.status });
+  } catch (error) {
+    console.error("업로드 중 오류:", error);
+    return new Response("Image upload failed", { status: 500 });
+  }
+}

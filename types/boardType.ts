@@ -108,3 +108,10 @@ export interface IAddCommentResponse {
   replies: IComment[];
   deleted: boolean;
 }
+
+export interface IPostPostRequest {
+  title: string;
+  content: string;
+  category: TCategory;
+  images: File[];
+}
