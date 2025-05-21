@@ -7,6 +7,7 @@ export interface IBoardPostType {
   likeCount: number;
   commentCount: number;
   highfiveCount: number;
+  thumbnailUrl: string;
 }
 
 export type TCategory =
@@ -37,6 +38,7 @@ export interface IPost {
   viewCount: number;
   commentCount: number;
   highfiveCount: number;
+  thumbnailUrl: string;
   author: IPostAuthor;
 }
 

@@ -13,7 +13,6 @@ const CATEGORY_LIST = [
   { value: "INFORMATION", title: "정보공유" },
   { value: "QNA", title: "Q&A" },
   { value: "DISCUSSION", title: "토론" },
-  { value: "FREE", title: "자유" },
 ];
 
 interface IPostCreateContentProps {

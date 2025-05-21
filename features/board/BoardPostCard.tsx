@@ -19,6 +19,7 @@ const BoardPostCard = ({
   category,
   title,
   time,
+  thumbnailUrl,
   likeCount,
   highfiveCount,
   commentCount,
@@ -45,6 +46,7 @@ const BoardPostCard = ({
         <Card.Content
           title={title}
           description={description}
+          imgSrc={thumbnailUrl}
           imgAlt="대표 이미지"
         />
       </div>

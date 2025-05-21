@@ -9,10 +9,9 @@ import { useRouter } from "next/navigation";
 const CATEGORY_LIST = [
   { id: "challenge", title: "챌린지" },
   { id: "review", title: "후기" },
-  { id: "infoShare", title: "정보공유" },
+  { id: "information", title: "정보공유" },
   { id: "qna", title: "Q&A" },
   { id: "discussion", title: "토론" },
-  { id: "free", title: "자유" },
 ];
 
 const BoardStartPost = () => {
