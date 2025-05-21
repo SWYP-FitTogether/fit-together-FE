@@ -111,14 +111,13 @@ export function useToggleLike(postId: number) {
 export function usePostHighfive(postId: number) {
   return useMutation<IPostHifiveResponse, FetchErrorType, { postId: number }>({
     mutationFn: addHighfive,
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: ["posts", postId],
       });
       queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
-      console.log(data);
     },
     onError: (err) => {
       throw Error(err.info?.message);

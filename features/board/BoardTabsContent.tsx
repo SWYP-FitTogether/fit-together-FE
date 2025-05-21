@@ -24,7 +24,6 @@ const BoardTabsContent = ({ value }: IBoardTabsContentProps) => {
     isLoading,
     isError,
   } = useInfinitePosts(value, sort);
-  console.log(data);
 
   useEffect(() => {
     if (!observerRef.current || !hasNextPage) return;

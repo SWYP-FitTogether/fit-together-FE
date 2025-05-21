@@ -26,7 +26,6 @@ const EditProfilePage = () => {
     gender: data?.gender,
     interests: data?.interests,
   });
-  console.log(value);
 
   const handleChange = useCallback(
     <K extends keyof IEditProfileInfoRequest>(

@@ -24,7 +24,6 @@ export const useAuthStore = create<AuthStore>((set) => {
         localStorage.setItem("nickname", nickname);
         localStorage.setItem("email", email);
       }
-      console.log(token, nickname, email);
       set({ accessToken: token, isLoggedIn: true, nickname, email });
     },
 
