@@ -9,6 +9,9 @@ export interface IGetProfileResponse {
   points: number;
   pointsToNextLevel: number;
   totalPointsForNextLevel: number;
+  totalPosts: number;
+  totalComments: number;
+  totalLikesReceived: number;
 }
 
 export interface PointHistoryItem {

@@ -40,11 +40,15 @@ const MyPageProfile = () => {
       <div className="flex w-full gap-2 p-5">
         <ProfileInfo
           title="작성한 게시글"
-          subTitle={`N개`}
+          subTitle={`${data?.totalPosts || 0}개`}
           className="w-full"
         />
         <Divider orientation="vertical" />
-        <ProfileInfo title="받은 추천수" subTitle={`N개`} className="w-full" />
+        <ProfileInfo
+          title="받은 추천수"
+          subTitle={`${data?.totalLikesReceived}개`}
+          className="w-full"
+        />
       </div>
     </div>
   );
