@@ -7,6 +7,8 @@ import {
 } from "@/types/boardType";
 import {
   addHighfive,
+  deleteComment,
+  deletePost,
   getComments,
   getPostDetail,
   getPosts,
@@ -134,6 +136,40 @@ export function usePostPost() {
         queryKey: ["posts"],
       });
       router.back();
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function useDeletePost() {
+  const router = useRouter();
+  return useMutation<unknown, FetchErrorType, { postId: number }>({
+    mutationFn: deletePost,
+    onSuccess: async () => {
+      router.push("/board");
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function useDeleteComment(postId: number) {
+  return useMutation<
+    unknown,
+    FetchErrorType,
+    { postId: number; commentId: number }
+  >({
+    mutationFn: deleteComment,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["comments", postId],
+      });
     },
     onError: (err) => {
       throw Error(err.info?.message);

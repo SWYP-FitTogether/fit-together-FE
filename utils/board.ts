@@ -201,3 +201,45 @@ export async function addHighfive({ postId }: { postId: number }) {
     throw createFetchError(error, "북마크 과정에서 오류가 발생하였습니다!");
   }
 }
+
+export async function deletePost({ postId }: { postId: number }) {
+  const token = getAccessToken();
+  try {
+    const response = await axios.post(
+      `/api/posts/${postId}`,
+      { token, postId },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "댓글 작성 과정에서 오류가 발생하였습니다!");
+  }
+}
+
+export async function deleteComment({
+  postId,
+  commentId,
+}: {
+  postId: number;
+  commentId: number;
+}) {
+  const token = getAccessToken();
+  try {
+    const response = await axios.post(
+      `/api/posts/${postId}/comments/delete`,
+      { token, postId, commentId },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "댓글 작성 과정에서 오류가 발생하였습니다!");
+  }
+}
