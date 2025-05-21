@@ -20,6 +20,7 @@ export type TCategory =
 export interface IPostAuthor {
   id: number;
   nickname: string;
+  email: string;
   profileImageUrl: string;
   level: number;
 }
@@ -70,6 +71,7 @@ export interface IComment {
   content: string;
   createdAt: string;
   updatedAt: string | null;
+  authorEmail: string;
   authorId: number;
   authorNickname: string;
   authorProfileImageUrl: string;

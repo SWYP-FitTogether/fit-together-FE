@@ -14,10 +14,11 @@ const PostDetailHeader = ({
   nickname,
   category,
   date,
+  email,
   level,
   profileImageUrl,
 }: IPostDetailHeaderProps) => {
-  const { nickname: name } = useAuthStore();
+  const { email: myEmail } = useAuthStore();
 
   return (
     <div className="flex flex-col gap-2">
@@ -27,7 +28,7 @@ const PostDetailHeader = ({
         level={level}
         date={date}
         imgSrc={profileImageUrl}
-        isMy={name === nickname}
+        isMy={email === myEmail}
       />
     </div>
   );
