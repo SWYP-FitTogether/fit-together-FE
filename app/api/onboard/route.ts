@@ -7,7 +7,7 @@ export async function PUT(req: NextRequest) {
   try {
     const body: { data: IOnboardInfo; acccessToken: string } = await req.json();
     const res = await axios.put(
-      "http://swyp.kro.kr:8080/api/users/onboarding",
+      "https://swyp.kro.kr/api/users/onboarding",
       body.data,
       {
         headers: {

@@ -5,8 +5,9 @@ import {
   IOnboardInfo,
 } from "@/types/auth";
 import { FetchErrorType } from "@/types/type";
-import { login, setOnboard } from "@/utils/auth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { login, logout, setOnboard, skipOnboard } from "@/utils/auth";
+import { queryClient } from "@/utils/queryClient";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useKakaoLogin = () => {
@@ -22,8 +23,35 @@ export const useKakaoLogin = () => {
     mutationFn: login,
     onSuccess: async (data) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      setAuth(data.accessToken, data.nickname);
-      navigate.push("/onboard");
+      setAuth(data.accessToken, data.nickname, data.email);
+      if (data.newUser) {
+        navigate.push("/onboard");
+      }
+      if (!data.newUser) {
+        navigate.push("/board");
+      }
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+
+  return {
+    mutate,
+    isError,
+    isPending,
+  };
+};
+
+export const useLogout = () => {
+  const navigate = useRouter();
+  const { logout: authLogout } = useAuthStore();
+  const { mutate, isError, isPending } = useMutation<unknown, FetchErrorType>({
+    mutationFn: logout,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      authLogout();
+      navigate.push("/");
     },
     onError: (err) => {
       throw Error(err.info?.message);
@@ -47,6 +75,26 @@ export const useOnboad = () => {
     IOnboardInfo
   >({
     mutationFn: setOnboard,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      navigate.push("/board");
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+
+  return {
+    mutate,
+    isError,
+    isPending,
+  };
+};
+
+export const useSkipOnboad = () => {
+  const navigate = useRouter();
+  const { mutate, isError, isPending } = useMutation<unknown, FetchErrorType>({
+    mutationFn: skipOnboard,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       navigate.push("/board");

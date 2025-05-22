@@ -29,7 +29,12 @@ const OnboardNavigation = ({
 
   return (
     <>
-      <SubNavigation type="onboard" title={title} onBack={handleChangeStep} />
+      <SubNavigation
+        type="onboard"
+        title={title}
+        onBack={handleChangeStep}
+        page="onboard"
+      />
       <div className="flex items-center justify-center px-5 py-2">
         <ProgressBar max={3} value={step} />
       </div>

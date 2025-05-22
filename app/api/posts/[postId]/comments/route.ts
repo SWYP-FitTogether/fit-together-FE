@@ -11,10 +11,11 @@ export async function GET(
   const page = searchParams.get("page") || "0";
   const size = searchParams.get("size") || "10";
   const token = searchParams.get("token") || "";
+
   try {
     console.log(page, size, postId, token);
     const res = await axios.get(
-      `http://swyp.kro.kr:8080/api/posts/${postId}/comments`,
+      `https://swyp.kro.kr/api/posts/${postId}/comments`,
       {
         withCredentials: true,
         headers: {
@@ -38,9 +39,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const token = body.token;
     const reqData = { content: body.comment, parentId: body.parentId };
-
     const res = await axios.post(
-      `http://swyp.kro.kr:8080/api/posts/${body.postId}/comments`,
+      `https://swyp.kro.kr/api/posts/${body.postId}/comments`,
       reqData,
       {
         headers: {

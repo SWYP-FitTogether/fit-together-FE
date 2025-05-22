@@ -70,13 +70,14 @@ const BoardTabsContent = ({ value }: IBoardTabsContentProps) => {
               key={post.id}
               id={post.id}
               name={post.author.nickname}
+              thumbnailUrl={post.thumbnailUrl}
               imgSrc={post.author.profileImageUrl}
               level={post.author.level}
               category={post.categoryDisplayName}
               title={post.title}
               time={post.createdAt}
               likeCount={post.likeCount}
-              highfiveCount={0}
+              highfiveCount={post.highfiveCount}
               commentCount={post.commentCount}
               description={post.contentSummary}
             />

@@ -7,6 +7,7 @@ export interface IBoardPostType {
   likeCount: number;
   commentCount: number;
   highfiveCount: number;
+  thumbnailUrl: string;
 }
 
 export type TCategory =
@@ -20,6 +21,7 @@ export type TCategory =
 export interface IPostAuthor {
   id: number;
   nickname: string;
+  email: string;
   profileImageUrl: string;
   level: number;
 }
@@ -35,6 +37,8 @@ export interface IPost {
   likeCount: number;
   viewCount: number;
   commentCount: number;
+  highfiveCount: number;
+  thumbnailUrl: string;
   author: IPostAuthor;
 }
 
@@ -69,14 +73,17 @@ export interface IComment {
   content: string;
   createdAt: string;
   updatedAt: string | null;
+  isDeleted: boolean;
   authorId: number;
+  authorEmail: string;
   authorNickname: string;
   authorProfileImageUrl: string;
   authorLevel: number;
+  postId: number;
+  postTitle: string;
   parentId: number | null;
   replyCount: number;
   replies: IComment[];
-  deleted: boolean;
 }
 
 export interface ICommentListResponse {
@@ -102,4 +109,16 @@ export interface IAddCommentResponse {
   replyCount: number;
   replies: IComment[];
   deleted: boolean;
+}
+
+export interface IPostPostRequest {
+  title: string;
+  content: string;
+  category: TCategory;
+  images: File[];
+}
+
+export interface IPostHifiveResponse {
+  success: boolean;
+  remainingCount: number;
 }

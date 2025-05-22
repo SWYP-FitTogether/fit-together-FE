@@ -22,6 +22,7 @@ const PostDetail = ({ postId }: IPostDetailProps) => {
             <PostDetailHeader
               id={data.id}
               category={data.categoryDisplayName}
+              email={data.author.email}
               date={data.createdAt}
               level={data.author.level}
               nickname={data.author.nickname}

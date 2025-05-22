@@ -1,0 +1,194 @@
+import axios from "axios";
+import { createFetchError, getAccessToken } from "./axios";
+import {
+  IEditProfileInfoRequest,
+  IGetBookmarksResponse,
+  IGetCommentsHistoryResponse,
+  IGetOnboardingInfoResponse,
+  IGetPointHistoryResponse,
+  IGetPostsHistoryResponse,
+  IGetProfileResponse,
+} from "@/types/profile";
+
+export async function getProfile() {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetProfileResponse>(
+      `/api/profile/me`,
+      { token },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "프로필 조회 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function getPointHistory(pageParam?: number) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetPointHistoryResponse>(
+      `/api/profile/me/points/history`,
+      {
+        page: pageParam,
+        size: 10,
+        token,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "포인트 내역 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function getPostsHistory(pageParam?: number) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetPostsHistoryResponse>(
+      `/api/profile/me/posts`,
+      {
+        page: pageParam,
+        size: 10,
+        token,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "게시글 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function getCommentsHistory(pageParam?: number) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetCommentsHistoryResponse>(
+      `/api/profile/me/comments`,
+      {
+        page: pageParam,
+        size: 10,
+        token,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "댓글 로딩 과정에서 오류가 발생하였습니다!");
+  }
+}
+
+export async function getBookmarks(pageParam?: number) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetBookmarksResponse>(
+      `/api/profile/me/bookmarks`,
+      {
+        page: pageParam,
+        size: 10,
+        token,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "북마크 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function postUserImg({ file }: { file: File | null }) {
+  if (!file) return;
+
+  try {
+    const token = getAccessToken();
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("token", token || "");
+
+    const response = await axios.post(`/api/profile/me/img`, formData, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "북마크 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function putProfileInfo(data: IEditProfileInfoRequest) {
+  try {
+    const token = getAccessToken();
+
+    const response = await axios.put(
+      `/api/profile/me/onboarding`,
+      { data, token },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "온보딩 과정에서 오류가 발생하였습니다!");
+  }
+}
+
+export async function getOnboardingInfo() {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetOnboardingInfoResponse>(
+      `/api/profile/me/onboarding`,
+      {
+        token,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "온보딩 정보 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}

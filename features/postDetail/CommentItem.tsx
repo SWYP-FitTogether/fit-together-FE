@@ -5,6 +5,8 @@ import ProfileHeader from "@/components/ProfileHeader";
 import { IComment } from "@/types/boardType";
 import { useState } from "react";
 import PostDetailAddComment from "./PostDetailAddComment";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useDeleteComment } from "@/hooks/useBoard";
 
 interface ICommentItemProps {
   comment: IComment;
@@ -14,6 +16,8 @@ interface ICommentItemProps {
 
 export function CommentItem({ comment, authorId, postId }: ICommentItemProps) {
   const [onReply, setOnReply] = useState(false);
+  const { email: myEmail } = useAuthStore();
+  const { mutate } = useDeleteComment(+postId);
 
   return (
     <div>
@@ -24,7 +28,8 @@ export function CommentItem({ comment, authorId, postId }: ICommentItemProps) {
         posReply={comment.parentId === null}
         profileHeader={
           <ProfileHeader
-            isMy={false}
+            onDelete={() => mutate({ postId: +postId, commentId: comment.id })}
+            isMy={myEmail === comment.authorEmail}
             isOwner={authorId === comment.authorId}
             imgSrc={comment.authorProfileImageUrl}
             name={comment.authorNickname}

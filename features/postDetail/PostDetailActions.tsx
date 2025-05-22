@@ -6,7 +6,7 @@ import CommentIcon from "@/components/icons/CommentIcon";
 import LikeIcon from "@/components/icons/LikeIcon";
 import SendIcon from "@/components/icons/SendIcon";
 import IconTextButton from "@/components/IconTextButton";
-import { useToggleBookmark } from "@/hooks/useBoard";
+import { useToggleBookmark, useToggleLike } from "@/hooks/useBoard";
 
 interface IPostDetailActionsProps {
   likeCount: number;
@@ -22,11 +22,17 @@ const PostDetailActions = ({
   isBookmarked,
 }: IPostDetailActionsProps) => {
   const { mutate } = useToggleBookmark(postId);
+  const { mutate: likeMutate } = useToggleLike(postId);
 
   return (
     <div className="flex justify-between px-5 py-2">
       <div className="flex gap-1">
-        <IconTextButton size="M" Icon={LikeIcon} className="text-gray-500">
+        <IconTextButton
+          onClick={() => likeMutate({ postId })}
+          size="M"
+          Icon={LikeIcon}
+          className="text-gray-500"
+        >
           {likeCount}
         </IconTextButton>
         <IconTextButton size="M" Icon={CommentIcon} className="text-gray-500">

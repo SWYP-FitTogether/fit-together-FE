@@ -1,18 +1,24 @@
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import {
-  useInfiniteQuery,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { IAddCommentResponse, TCategory } from "@/types/boardType";
+  IAddCommentResponse,
+  IPostHifiveResponse,
+  IPostPostRequest,
+  TCategory,
+} from "@/types/boardType";
 import {
+  addHighfive,
+  deleteComment,
+  deletePost,
   getComments,
   getPostDetail,
   getPosts,
   postComment,
+  postPost,
   toggleBookmark,
+  toggleLike,
 } from "@/utils/board";
 import { FetchErrorType } from "@/types/type";
+import { useRouter } from "next/navigation";
 
 export function useInfinitePosts(
   category: TCategory,
@@ -82,6 +88,90 @@ export function useToggleBookmark(postId: number) {
     onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: ["posts", postId],
+      });
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function useToggleLike(postId: number) {
+  return useMutation<unknown, FetchErrorType, { postId: number }>({
+    mutationFn: toggleLike,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function usePostHighfive(postId: number) {
+  return useMutation<IPostHifiveResponse, FetchErrorType, { postId: number }>({
+    mutationFn: addHighfive,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function usePostPost() {
+  const router = useRouter();
+  return useMutation<unknown, FetchErrorType, IPostPostRequest>({
+    mutationFn: postPost,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+      router.back();
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function useDeletePost() {
+  const router = useRouter();
+  return useMutation<unknown, FetchErrorType, { postId: number }>({
+    mutationFn: deletePost,
+    onSuccess: async () => {
+      router.push("/board");
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+
+export function useDeleteComment(postId: number) {
+  return useMutation<
+    unknown,
+    FetchErrorType,
+    { postId: number; commentId: number }
+  >({
+    mutationFn: deleteComment,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["comments", postId],
       });
     },
     onError: (err) => {
