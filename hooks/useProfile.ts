@@ -10,8 +10,12 @@ import {
   postUserImg,
   putProfileInfo,
 } from "@/utils/profile";
-import { queryClient } from "@/utils/queryClient";
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export function useGetProfile() {
@@ -70,6 +74,7 @@ export function useGetBookmarks() {
 }
 
 export const useChangeProfileImg = () => {
+  const queryClient = useQueryClient();
   return useMutation<unknown, FetchErrorType, { file: File | null }>({
     mutationFn: postUserImg,
     onSuccess: () => {
@@ -83,6 +88,7 @@ export const useChangeProfileImg = () => {
 
 export const useChangeProfileInfo = () => {
   const navigate = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation<unknown, FetchErrorType, IEditProfileInfoRequest>({
     mutationFn: putProfileInfo,

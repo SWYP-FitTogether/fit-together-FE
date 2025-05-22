@@ -1,14 +1,19 @@
 import { FetchErrorType } from "@/types/type";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+
+interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+  _retry?: boolean;
+}
 
 axios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const originalRequest = error.config as CustomAxiosRequestConfig;
 
     if (
       (error.response?.status === 401 || error.response?.status === 500) &&
-      !originalRequest._retry
+      !originalRequest._retry &&
+      originalRequest.url !== "/api/auth/refresh"
     ) {
       originalRequest._retry = true;
 
@@ -20,19 +25,19 @@ axios.interceptors.response.use(
         const newAccessToken = res.data.accessToken;
         localStorage.setItem("accessToken", newAccessToken);
 
-        if (newAccessToken) {
+        if (newAccessToken && originalRequest.headers) {
           axios.defaults.headers.common["Authorization"] =
             `Bearer ${newAccessToken}`;
 
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-
           return axios(originalRequest);
         }
       } catch (refreshError) {
-        console.error("리프레시 실패", refreshError);
+        window.location.href = "/login";
         await axios.post("/api/auth/logout", null, {
           withCredentials: true,
         });
+        console.error("리프레시 실패", refreshError);
       }
     }
 

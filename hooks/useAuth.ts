@@ -6,8 +6,7 @@ import {
 } from "@/types/auth";
 import { FetchErrorType } from "@/types/type";
 import { login, logout, setOnboard, skipOnboard } from "@/utils/auth";
-import { queryClient } from "@/utils/queryClient";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useKakaoLogin = () => {
@@ -44,6 +43,7 @@ export const useKakaoLogin = () => {
 };
 
 export const useLogout = () => {
+  const queryClient = useQueryClient();
   const navigate = useRouter();
   const { logout: authLogout } = useAuthStore();
   const { mutate, isError, isPending } = useMutation<unknown, FetchErrorType>({
@@ -92,6 +92,7 @@ export const useOnboad = () => {
 };
 
 export const useSkipOnboad = () => {
+  const queryClient = useQueryClient();
   const navigate = useRouter();
   const { mutate, isError, isPending } = useMutation<unknown, FetchErrorType>({
     mutationFn: skipOnboard,

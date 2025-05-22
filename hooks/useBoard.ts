@@ -1,4 +1,9 @@
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   IAddCommentResponse,
   IPostHifiveResponse,
@@ -97,6 +102,7 @@ export function useToggleBookmark(postId: number) {
 }
 
 export function useToggleLike(postId: number) {
+  const queryClient = useQueryClient();
   return useMutation<unknown, FetchErrorType, { postId: number }>({
     mutationFn: toggleLike,
     onSuccess: async () => {
@@ -114,6 +120,7 @@ export function useToggleLike(postId: number) {
 }
 
 export function usePostHighfive(postId: number) {
+  const queryClient = useQueryClient();
   return useMutation<IPostHifiveResponse, FetchErrorType, { postId: number }>({
     mutationFn: addHighfive,
     onSuccess: async () => {
@@ -131,6 +138,7 @@ export function usePostHighfive(postId: number) {
 }
 
 export function usePostPost() {
+  const queryClient = useQueryClient();
   const router = useRouter();
   return useMutation<unknown, FetchErrorType, IPostPostRequest>({
     mutationFn: postPost,
@@ -160,6 +168,7 @@ export function useDeletePost() {
 }
 
 export function useDeleteComment(postId: number) {
+  const queryClient = useQueryClient();
   return useMutation<
     unknown,
     FetchErrorType,
