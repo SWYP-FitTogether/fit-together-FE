@@ -17,7 +17,6 @@ import {
   toggleBookmark,
   toggleLike,
 } from "@/utils/board";
-import { queryClient } from "@/utils/queryClient";
 import { FetchErrorType } from "@/types/type";
 import { useRouter } from "next/navigation";
 
@@ -59,6 +58,8 @@ export function useInfiniteComments(postId: number) {
 }
 
 export function usePostComment(postId: number) {
+  const queryClient = useQueryClient();
+
   return useMutation<
     IAddCommentResponse,
     FetchErrorType,
@@ -80,6 +81,8 @@ export function usePostComment(postId: number) {
 }
 
 export function useToggleBookmark(postId: number) {
+  const queryClient = useQueryClient();
+
   return useMutation<unknown, FetchErrorType, { postId: number }>({
     mutationFn: toggleBookmark,
     onSuccess: async () => {

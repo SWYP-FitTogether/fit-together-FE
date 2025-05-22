@@ -11,6 +11,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useKakaoLogin = () => {
+  const queryClient = useQueryClient();
+
   const navigate = useRouter();
   const { setAuth } = useAuthStore();
   const { mutate, isError, isPending } = useMutation<
@@ -64,6 +66,8 @@ export const useLogout = () => {
 };
 
 export const useOnboad = () => {
+  const queryClient = useQueryClient();
+
   const navigate = useRouter();
   const { mutate, isError, isPending } = useMutation<
     IKakaoLoginResponse,

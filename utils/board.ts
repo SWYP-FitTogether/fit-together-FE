@@ -94,7 +94,6 @@ export async function getPostDetail(id: number) {
 
 interface IGetCommentsProps {
   pageParam?: number;
-
   postId: number;
 }
 

@@ -1,15 +1,19 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ postId: string }> },
+) {
+  const { postId } = await params;
   const { searchParams } = new URL(req.url);
 
   const page = searchParams.get("page") || "0";
   const size = searchParams.get("size") || "10";
-  const postId = searchParams.get("postId") || "";
   const token = searchParams.get("token") || "";
 
   try {
+    console.log(page, size, postId, token);
     const res = await axios.get(
       `https://swyp.kro.kr/api/posts/${postId}/comments`,
       {
@@ -20,7 +24,6 @@ export async function GET(req: NextRequest) {
         params: {
           page,
           size,
-          postId,
         },
       },
     );
