@@ -16,6 +16,7 @@ const BoardPostCard = ({
   name,
   level,
   imgSrc,
+  userHighfiveCount,
   category,
   title,
   time,
@@ -33,7 +34,7 @@ const BoardPostCard = ({
     <Card>
       <Card.Header
         name={name}
-        highfiveCount={highfiveCount}
+        highfiveCount={userHighfiveCount}
         level={level}
         imgAlt="프로필 이미지"
         imgSrc={imgSrc}

@@ -2,6 +2,7 @@ export interface IBoardPostType {
   id: number;
   title: string;
   description: string;
+  userHighfiveCount: number;
   category: string;
   time: string;
   likeCount: number;
@@ -32,6 +33,7 @@ export interface IPost {
   contentSummary: string;
   category: TCategory;
   categoryDisplayName: string;
+  userHighfiveCount: number;
   createdAt: string;
   updatedAt: string | null;
   likeCount: number;

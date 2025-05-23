@@ -42,6 +42,7 @@ const HighfiveButton = (props: IHighfiveButtonProps) => {
           "cursor-not-allowed bg-gradation hover:opacity-100 active:opacity-100",
         className,
       )}
+      disabled={variant === "click" && props.count === props.maxcount}
       {...props}
     >
       {variant === "default" && <ClapIcon className="h-5 w-5 text-gray-500" />}
