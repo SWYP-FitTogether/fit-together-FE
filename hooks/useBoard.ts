@@ -19,6 +19,7 @@ import {
   getPosts,
   postComment,
   postPost,
+  putPost,
   toggleBookmark,
   toggleLike,
 } from "@/utils/board";
@@ -145,6 +146,26 @@ export function usePostPost() {
     onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
+      });
+      router.back();
+    },
+    onError: (err) => {
+      throw Error(err.info?.message);
+    },
+  });
+}
+interface EditRequestData {
+  data: IPostPostRequest;
+  postId: string;
+}
+export function usePutPost(postId: string) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  return useMutation<unknown, FetchErrorType, EditRequestData>({
+    mutationFn: putPost,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId],
       });
       router.back();
     },

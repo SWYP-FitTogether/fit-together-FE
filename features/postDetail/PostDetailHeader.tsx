@@ -5,6 +5,7 @@ import Tag from "@/components/Tag";
 import { useDeletePost } from "@/hooks/useBoard";
 import { useAuthStore } from "@/store/useAuthStore";
 import { IPostAuthor } from "@/types/boardType";
+import { useRouter } from "next/navigation";
 
 interface IPostDetailHeaderProps extends IPostAuthor {
   category: string;
@@ -21,6 +22,7 @@ const PostDetailHeader = ({
   profileImageUrl,
 }: IPostDetailHeaderProps) => {
   const { email: myEmail } = useAuthStore();
+  const router = useRouter();
   const { mutate } = useDeletePost();
 
   return (
@@ -28,6 +30,7 @@ const PostDetailHeader = ({
       <Tag tag={category} />
       <ProfileHeader
         onDelete={() => mutate({ postId: id })}
+        onEdit={() => router.push(`/board/${id}/edit`)}
         name={nickname}
         level={level}
         date={date}

@@ -72,6 +72,39 @@ export async function postPost(data: IPostPostRequest) {
   }
 }
 
+export async function putPost(props: {
+  data: IPostPostRequest;
+  postId: string;
+}) {
+  try {
+    const token = getAccessToken();
+    const formData = new FormData();
+    formData.append("postId", props.postId);
+    formData.append("title", props.data.title);
+    formData.append("content", props.data.content);
+    formData.append("category", props.data.category);
+
+    props.data.images.forEach((file) => {
+      formData.append("images", file);
+    });
+
+    const response = await axios.put(`/api/posts/${props.postId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      params: { token, postId: props.postId },
+      withCredentials: true,
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "북마크 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
 export async function getPostDetail(id: number) {
   try {
     const token = getAccessToken();

@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import TrashIcon from "./icons/TrashIcon";
+import PencilIcon from "./icons/PencilIcon";
 
 interface IProfileHeaderProps
   extends Omit<React.ComponentProps<typeof CircleImg>, "size"> {
@@ -22,6 +23,7 @@ interface IProfileHeaderProps
   isOwner?: boolean;
   onDotsClick?: () => void;
   onDelete?: () => void;
+  onEdit?: () => void;
   highfiveCount?: number;
 }
 
@@ -40,6 +42,7 @@ const ProfileHeader = ({
   highfiveCount,
   onDotsClick,
   onDelete,
+  onEdit,
 }: IProfileHeaderProps) => {
   return (
     <div className={cn("flex w-full items-center gap-2", className)}>
@@ -67,8 +70,15 @@ const ProfileHeader = ({
                 <DotsIcon />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="flex h-[58px] items-center justify-center rounded-base border border-gray-200">
-              <button className="cursor-pointer" onClick={onDelete}>
+            <DropdownMenuContent className="flex flex-col items-center justify-center rounded-base border border-gray-200 p-0">
+              {onEdit && (
+                <button className="h-[58px] cursor-pointer" onClick={onEdit}>
+                  <p className="flex gap-3 text-body-1 text-gray-600">
+                    수정하기{<PencilIcon className="h-6 w-6 text-gray-600" />}
+                  </p>
+                </button>
+              )}
+              <button className="h-[58px] cursor-pointer" onClick={onDelete}>
                 <p className="flex gap-3 text-body-1 text-error">
                   삭제하기{<TrashIcon className="h-6 w-6 text-error" />}
                 </p>

@@ -41,3 +41,27 @@ export async function POST(req: NextRequest) {
     return new Response("Internal Server Error", { status: 500 });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+    const formData = await req.formData();
+    const token = req.nextUrl.searchParams.get("token");
+    const postId = req.nextUrl.searchParams.get("postId");
+    const res = await axios.put(
+      `https://swyp.kro.kr/api/posts/${postId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      },
+    );
+
+    return NextResponse.json({ status: res.status });
+  } catch (error) {
+    console.error(error);
+    return new Response("Internal Server Error", { status: 500 });
+  }
+}
