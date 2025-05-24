@@ -2,7 +2,6 @@
 
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 const dotVariants = cva(
   "w-2 h-2 rounded-full cursor-pointer transition-colors duration-200",
@@ -21,22 +20,10 @@ const dotVariants = cva(
 
 interface IPaginationProps {
   total: number;
-  initialPage?: number;
-  onChangePage?: (page: number) => void;
+  current: number;
 }
 
-const Pagination = ({
-  total,
-  initialPage = 1,
-  onChangePage,
-}: IPaginationProps) => {
-  const [current, setCurrent] = useState(initialPage);
-
-  function onChange(page: number) {
-    setCurrent(page);
-    onChangePage?.(page);
-  }
-
+const Pagination = ({ total, current }: IPaginationProps) => {
   return (
     <div className="flex items-center gap-2 p-1">
       {Array.from({ length: total }).map((_, index) => {
@@ -46,7 +33,6 @@ const Pagination = ({
           <button
             key={index}
             className={cn(dotVariants({ active: isActive }))}
-            onClick={() => onChange(page)}
             aria-label={`Page ${page}`}
             aria-current={isActive ? "page" : undefined}
           />
