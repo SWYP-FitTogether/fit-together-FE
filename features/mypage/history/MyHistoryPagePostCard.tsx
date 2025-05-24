@@ -59,7 +59,7 @@ const MyHistoryPagePostCard = (props: MyHistoryPagePostCardProps) => {
         category={category}
         time={time}
         commentCount={commentCount}
-        highfiveCount={highfiveCount}
+        highfiveCount={highfiveCount || 0}
         likeCount={likeCount}
       />
     </Card>

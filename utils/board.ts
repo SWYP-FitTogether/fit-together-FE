@@ -52,7 +52,7 @@ export async function postPost(data: IPostPostRequest) {
     formData.append("category", data.category);
 
     data.images.forEach((file) => {
-      formData.append("images", file);
+      formData.append("images", file.file);
     });
 
     const response = await axios.post(`/api/posts`, formData, {
@@ -83,9 +83,10 @@ export async function putPost(props: {
     formData.append("title", props.data.title);
     formData.append("content", props.data.content);
     formData.append("category", props.data.category);
+    formData.append("keepImageIds", "");
 
     props.data.images.forEach((file) => {
-      formData.append("images", file);
+      formData.append("images", file.file);
     });
 
     const response = await axios.put(`/api/posts/${props.postId}`, formData, {

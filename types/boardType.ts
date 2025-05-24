@@ -117,7 +117,7 @@ export interface IPostPostRequest {
   title: string;
   content: string;
   category: TCategory;
-  images: File[];
+  images: { id: string; file: File }[];
 }
 
 export interface IPostHifiveResponse {

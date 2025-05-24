@@ -21,12 +21,11 @@ const PostEditNavigation = ({ data, postId }: IPostEditNavigationProps) => {
           router.back();
         }}
         onButtonClick={() => {
-          console.log(data);
           mutate({ data, postId });
         }}
         type="write"
-        title="글 작성하기"
-        buttonText="등록"
+        title="글 수정하기"
+        buttonText="수정"
         disabled={!(data.title && data.content && data.category)}
         page="board"
       />

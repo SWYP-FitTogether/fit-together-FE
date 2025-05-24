@@ -27,8 +27,7 @@ const EditPost = ({ postId }: IEditPostProps) => {
   async function urlToFile(url: string, filename: string): Promise<File> {
     const response = await fetch(url);
     const blob = await response.blob();
-    const file = new File([blob], filename, { type: blob.type });
-    return file;
+    return new File([blob], filename, { type: blob.type });
   }
 
   useEffect(() => {
@@ -43,14 +42,15 @@ const EditPost = ({ postId }: IEditPostProps) => {
     }));
 
     const fetchImages = async () => {
-      const fetchedFiles: File[] = [];
+      const fetchedImages: { id: string; file: File }[] = [];
       const previews = await Promise.all(
         postData.imageUrls.map(async (url, index) => {
           const file = await urlToFile(url, `image-${index}.jpg`);
-          fetchedFiles.push(file);
+          const id = `server-${index}`;
+          fetchedImages.push({ id, file });
 
           return {
-            id: `server-${index}`,
+            id,
             src: url,
             alt: file.name,
           };
@@ -58,7 +58,7 @@ const EditPost = ({ postId }: IEditPostProps) => {
       );
 
       setPreviewImages(previews);
-      setData((prev) => ({ ...prev, images: fetchedFiles }));
+      setData((prev) => ({ ...prev, images: fetchedImages }));
     };
 
     if (postData.imageUrls.length > 0) {
@@ -78,15 +78,15 @@ const EditPost = ({ postId }: IEditPostProps) => {
 
   const handleRemoveImage = (id: string) => {
     const target = previewImages.find((img) => img.id === id);
-    if (target?.src) URL.revokeObjectURL(target.src);
+    if (target?.src?.startsWith("blob:")) {
+      URL.revokeObjectURL(target.src);
+    }
 
     setPreviewImages((prev) => prev.filter((img) => img.id !== id));
-    handleChange(
-      "images",
-      data.images.filter(
-        (_, i) => i !== previewImages.findIndex((img) => img.id === id),
-      ),
-    );
+    setData((prev) => ({
+      ...prev,
+      images: prev.images.filter((img) => img.id !== id),
+    }));
   };
 
   useEffect(() => {

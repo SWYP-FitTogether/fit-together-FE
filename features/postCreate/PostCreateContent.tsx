@@ -48,12 +48,18 @@ const PostCreateContent = ({
 
     const files = Array.from(e.target.files);
 
-    onChnage("images", [...data.images, ...files]);
+    const timestamp = Date.now();
+    const imageData = files.map((file, index) => ({
+      id: `${timestamp}-${index}`,
+      file,
+    }));
 
-    const newPreviews = files.map((file, index) => ({
-      id: `${Date.now()}-${index}`,
-      src: URL.createObjectURL(file),
-      alt: file.name,
+    onChnage("images", [...data.images, ...imageData]);
+
+    const newPreviews = imageData.map((img) => ({
+      id: img.id,
+      src: URL.createObjectURL(img.file),
+      alt: img.file.name,
     }));
 
     setPreviewImages((prev) => [...prev, ...newPreviews]);
