@@ -57,6 +57,7 @@ function PopupProfileUploadContent({
           <CircleImg
             key={item.id}
             size="M"
+            imgSrc={item.imgSrc}
             isSelected={selectedImg?.id === item.id}
             onClick={() => onSelect(item)}
           />
@@ -135,8 +136,21 @@ const PopupProfileUpload = ({
   const { mutate } = useChangeProfileImg();
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  function handleSelectImg(img: ProfileImgType) {
+  async function urlToFile(url: string): Promise<File> {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 8);
+
+    const filename = `image_${timestamp}_${random}.png`;
+    const mimeType = "image/png";
+    return new File([blob], filename, { type: mimeType });
+  }
+
+  async function handleSelectImg(img: ProfileImgType) {
+    const file = await urlToFile(img.imgSrc || "");
     setSelectedImg(img);
+    setImg(file);
     setPreview(null);
   }
 

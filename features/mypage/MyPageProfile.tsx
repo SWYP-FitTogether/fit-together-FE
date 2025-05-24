@@ -8,6 +8,15 @@ import ProgressBar from "@/components/ProgressBar";
 import { useGetProfile } from "@/hooks/useProfile";
 import React from "react";
 
+const DEFAULT_IMG: { id: string | number; imgSrc?: string; imgAlt?: string }[] =
+  [
+    { id: 1, imgSrc: "/character1.png" },
+    { id: 2, imgSrc: "/character2.png" },
+    { id: 3, imgSrc: "/character3.png" },
+    { id: 4, imgSrc: "/character4.png" },
+    { id: 5, imgSrc: "/character5.png" },
+  ];
+
 const MyPageProfile = () => {
   const { data } = useGetProfile();
   return (
@@ -15,7 +24,7 @@ const MyPageProfile = () => {
       <div className="flex flex-col items-center gap-2">
         <div className="flex h-fit w-[72px] flex-col gap-2">
           <PopupProfileUpload
-            profileImgs={[{ id: "1" }]}
+            profileImgs={DEFAULT_IMG}
             defaultImg={data?.profileImageUrl}
           >
             <button className="cursor-pointer">
