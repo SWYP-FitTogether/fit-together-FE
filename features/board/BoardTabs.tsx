@@ -3,7 +3,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import BoardTabsContent from "./BoardTabsContent";
 import { TCategory } from "@/types/boardType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { firstLogin } from "@/utils/auth";
 
 const TABS_LIST: { value: TCategory; title: string }[] = [
   { value: "ALL", title: "전체" },
@@ -16,6 +17,13 @@ const TABS_LIST: { value: TCategory; title: string }[] = [
 
 const BoardTabs = () => {
   const [selectedTab, setSelectedTab] = useState<TCategory>("ALL");
+
+  useEffect(() => {
+    firstLogin().catch((err) => {
+      console.error(err);
+    });
+  }, []);
+
   return (
     <Tabs
       value={selectedTab}

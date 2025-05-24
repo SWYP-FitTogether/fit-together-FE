@@ -23,6 +23,24 @@ export async function login(data: IKakaoLoginRequest) {
   }
 }
 
+export async function firstLogin() {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post(
+      `/api/auth/firstLogin`,
+      { token },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(error, "로그인 과정에서 오류가 발생하였습니다!");
+  }
+}
+
 export async function logout() {
   try {
     const response = await axios.post(`/api/auth/logout`, null, {
@@ -61,6 +79,26 @@ export async function skipOnboard() {
   try {
     const response = await axios.post(
       `/api/onboard/skip`,
+      { token },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "온보딩 스킵 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function tutorialSuccess() {
+  const token = getAccessToken();
+  try {
+    const response = await axios.post(
+      `/api/onboard/tutorial`,
       { token },
       {
         withCredentials: true,

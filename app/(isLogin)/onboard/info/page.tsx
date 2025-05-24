@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { tutorialSuccess } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -77,7 +78,10 @@ const OnboardInfoPage = () => {
         <Pagination total={count} current={current} />
         <Button
           variant="primary"
-          onClick={() => router.push("/onboard/add")}
+          onClick={() => {
+            tutorialSuccess();
+            router.push("/onboard/add");
+          }}
           size="L"
           disabled={count !== current}
         >

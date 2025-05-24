@@ -5,7 +5,13 @@ import {
   IOnboardInfo,
 } from "@/types/auth";
 import { FetchErrorType } from "@/types/type";
-import { login, logout, setOnboard, skipOnboard } from "@/utils/auth";
+import {
+  firstLogin,
+  login,
+  logout,
+  setOnboard,
+  skipOnboard,
+} from "@/utils/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -23,6 +29,7 @@ export const useKakaoLogin = () => {
     onSuccess: async (data) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       setAuth(data.accessToken, data.nickname, data.email);
+      await firstLogin();
       if (data.newUser) {
         navigate.push("/onboard");
       }
