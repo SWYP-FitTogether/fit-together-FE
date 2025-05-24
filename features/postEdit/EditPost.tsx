@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { IPostPostRequest } from "@/types/boardType";
+import { IPostPostRequest, TCategory } from "@/types/boardType";
 import PostCreateContent from "../postCreate/PostCreateContent";
 import PostCreateImages from "../postCreate/PostCreateImages";
 import { useFetchPostDetail } from "@/hooks/useBoard";
@@ -21,6 +21,16 @@ const EditPost = ({ postId }: IEditPostProps) => {
   const [previewImages, setPreviewImages] = useState<
     { id: string; src?: string; alt?: string }[]
   >([]);
+
+  const handleReset = (category: TCategory) => {
+    setData({
+      title: "",
+      content: "",
+      category: category,
+      images: [],
+    });
+    setPreviewImages([]);
+  };
 
   const { data: postData } = useFetchPostDetail(+postId);
 
@@ -104,6 +114,7 @@ const EditPost = ({ postId }: IEditPostProps) => {
       <PostEditNavigation data={data} postId={postId} />
       <PostCreateContent
         data={data}
+        onReset={handleReset}
         onChnage={handleChange}
         setPreviewImages={setPreviewImages}
       />

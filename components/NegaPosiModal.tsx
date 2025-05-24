@@ -14,7 +14,7 @@ import { ReactNode } from "react";
 
 interface INegaPosiModalProps {
   title: string;
-  description: string;
+  description: string | ReactNode;
   onCancel?: () => void;
   onConfirm?: () => void;
   children: ReactNode;

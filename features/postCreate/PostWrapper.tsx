@@ -20,6 +20,16 @@ const PostWrapper = ({ searchParams }: IPostWrapperProps) => {
     { id: string; src?: string; alt?: string }[]
   >([]);
 
+  const handleReset = (category: TCategory) => {
+    setData({
+      title: "",
+      content: "",
+      category: category,
+      images: [],
+    });
+    setPreviewImages([]);
+  };
+
   const handleChange = <K extends keyof IPostPostRequest>(
     key: K,
     val: IPostPostRequest[K],
@@ -56,6 +66,7 @@ const PostWrapper = ({ searchParams }: IPostWrapperProps) => {
       <PostCreateNavigation data={data} />
       <PostCreateContent
         data={data}
+        onReset={handleReset}
         onChnage={handleChange}
         setPreviewImages={setPreviewImages}
       />
