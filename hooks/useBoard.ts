@@ -131,6 +131,9 @@ export function usePostHighfive(postId: number) {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["profile"],
+      });
     },
     onError: (err) => {
       throw Error(err.info?.message);
