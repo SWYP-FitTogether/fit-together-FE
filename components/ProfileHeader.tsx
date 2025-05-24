@@ -43,6 +43,7 @@ const ProfileHeader = ({
   onDotsClick,
   onDelete,
   onEdit,
+  onClick,
 }: IProfileHeaderProps) => {
   return (
     <div className={cn("flex w-full items-center gap-2", className)}>
@@ -52,7 +53,13 @@ const ProfileHeader = ({
         imgSrc={imgSrc}
         imgAlt={imgAlt}
       />
-      <div className="flex grow items-center justify-between">
+      <div
+        className={cn(
+          "flex grow items-center justify-between",
+          onClick && "cursor-pointer",
+        )}
+        onClick={onClick}
+      >
         <div className="flex h-[39px] flex-col justify-center">
           <div className="flex gap-1">
             <span className="text-button-2 text-gray-black">{name}</span>

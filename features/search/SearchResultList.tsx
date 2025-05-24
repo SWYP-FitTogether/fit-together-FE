@@ -41,6 +41,7 @@ const SearchResultList = ({ searchParams }: Props) => {
           <BoardPostCard
             key={post.id}
             id={post.id}
+            author={post.author.id}
             userHighfiveCount={post.userHighfiveCount}
             name={post.author.nickname}
             thumbnailUrl={post.thumbnailUrl}

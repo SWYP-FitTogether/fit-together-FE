@@ -16,14 +16,19 @@ import UnderlineButton from "./UnderlineButton";
 import { ReactNode } from "react";
 
 interface IPopupProfileHeaderProps {
+  profileImg?: string;
   name: string;
   level: string | number;
 }
 
-function PopupProfileHeader({ name, level }: IPopupProfileHeaderProps) {
+function PopupProfileHeader({
+  name,
+  level,
+  profileImg,
+}: IPopupProfileHeaderProps) {
   return (
-    <div className="flex h-fit w-[72px] flex-col gap-2">
-      <CircleImg size="L" />
+    <div className="flex h-fit w-fit flex-col items-center justify-center gap-2">
+      <CircleImg size="L" imgSrc={profileImg} />
       <div className="flex flex-col items-center gap-0.5">
         <p className="text-button-1 text-gray-black">{name}</p>
         <span className="text-caption-1 text-gray-600">LV. {level}</span>
@@ -67,14 +72,15 @@ const PopupProfile = ({
   level,
   likeCount,
   postCount,
+  profileImg,
   children,
   onClick,
 }: IPopupProfileProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="flex h-[313px] w-[335px] flex-col items-center gap-5 rounded-[12px] p-5 pt-[52px] [&>button]:hidden">
-        <PopupProfileHeader name={name} level={level} />
+      <DialogContent className="flex h-[313px] w-[335px] flex-col items-center justify-center gap-5 rounded-[12px] p-5 pt-[52px] [&>button]:hidden">
+        <PopupProfileHeader name={name} level={level} profileImg={profileImg} />
         <PopupProfileInfo likeCount={likeCount} postCount={postCount} />
         <div className="flex w-full justify-end">
           <UnderlineButton onClick={onClick}>

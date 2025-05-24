@@ -57,3 +57,12 @@ export interface IGetOnboardingInfoResponse {
   ageRange: TAgeRange;
   interests: TInterests[];
 }
+
+export interface IProfileResponse {
+  id: number;
+  nickname: string;
+  profileImageUrl: string;
+  level: number;
+  totalPosts: number;
+  totalLikesReceived: number;
+}

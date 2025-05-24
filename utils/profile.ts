@@ -8,6 +8,7 @@ import {
   IGetPointHistoryResponse,
   IGetPostsHistoryResponse,
   IGetProfileResponse,
+  IProfileResponse,
 } from "@/types/profile";
 
 export async function getProfile() {
@@ -64,6 +65,34 @@ export async function getPostsHistory(pageParam?: number) {
         page: pageParam,
         size: 10,
         token,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "게시글 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function getUserPostsHistory(props: {
+  pageParam?: number;
+  id: number;
+}) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IGetPostsHistoryResponse>(
+      `/api/user/post`,
+      {
+        page: props.pageParam,
+        size: 10,
+        token,
+        id: props.id,
       },
       {
         withCredentials: true,
@@ -189,6 +218,27 @@ export async function getOnboardingInfo() {
     throw createFetchError(
       error,
       "온보딩 정보 로딩 과정에서 오류가 발생하였습니다!",
+    );
+  }
+}
+
+export async function getIdProfile(id: number) {
+  try {
+    const token = getAccessToken();
+    const response = await axios.post<IProfileResponse>(
+      `/api/user`,
+      { token, id },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    throw createFetchError(
+      error,
+      "프로필 조회 과정에서 오류가 발생하였습니다!",
     );
   }
 }
