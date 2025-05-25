@@ -38,6 +38,7 @@ const PostDetail = ({ postId }: IPostDetailProps) => {
           <div className="flex flex-col gap-2">
             <PostDetailActions
               postId={+postId}
+              data={data}
               commentCount={data.commentCount}
               likeCount={data.likeCount}
               isBookmarked={data.isBookmarked}
