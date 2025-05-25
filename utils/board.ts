@@ -79,11 +79,13 @@ export async function putPost(props: {
   try {
     const token = getAccessToken();
     const formData = new FormData();
+
     formData.append("postId", props.postId);
     formData.append("title", props.data.title);
     formData.append("content", props.data.content);
     formData.append("category", props.data.category);
     formData.append("keepImageIds", "");
+    formData.append("token", token || "");
 
     props.data.images.forEach((file) => {
       formData.append("images", file.file);
@@ -91,18 +93,15 @@ export async function putPost(props: {
 
     const response = await axios.put(`/api/posts/${props.postId}`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
       },
-      params: { token, postId: props.postId },
+      params: { postId: props.postId },
       withCredentials: true,
     });
 
     return response.data;
   } catch (error: unknown) {
-    throw createFetchError(
-      error,
-      "북마크 로딩 과정에서 오류가 발생하였습니다!",
-    );
+    throw createFetchError(error, "게시글 수정 중 오류가 발생하였습니다!");
   }
 }
 

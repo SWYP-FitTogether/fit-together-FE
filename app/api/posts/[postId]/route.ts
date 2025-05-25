@@ -45,17 +45,16 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const formData = await req.formData();
-    const token = req.nextUrl.searchParams.get("token");
+    const token = formData.get("token");
     const postId = req.nextUrl.searchParams.get("postId");
     const res = await axios.put(
       `https://swyp.kro.kr/api/posts/${postId}`,
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
-        withCredentials: true,
       },
     );
 
