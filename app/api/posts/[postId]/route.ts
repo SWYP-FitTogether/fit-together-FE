@@ -47,6 +47,9 @@ export async function PUT(req: NextRequest) {
     const formData = await req.formData();
     const token = formData.get("token");
     const postId = req.nextUrl.searchParams.get("postId");
+    console.log(formData);
+    console.log(token);
+    console.log(postId);
     const res = await axios.put(
       `https://swyp.kro.kr/api/posts/${postId}`,
       formData,
@@ -60,6 +63,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json({ status: res.status });
   } catch (error) {
+    console.log(error);
     console.error(error);
     return new Response("Internal Server Error", { status: 500 });
   }
