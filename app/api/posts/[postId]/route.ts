@@ -46,7 +46,7 @@ export async function PUT(req: NextRequest) {
   try {
     const formData = await req.formData();
     const token = formData.get("token");
-    const postId = req.nextUrl.searchParams.get("postId");
+    const postId = formData.get("postId");
     console.log(formData);
     console.log(token);
     console.log(postId);

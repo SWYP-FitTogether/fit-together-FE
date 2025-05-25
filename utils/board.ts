@@ -86,6 +86,7 @@ export async function putPost(props: {
     formData.append("category", props.data.category);
     formData.append("keepImageIds", "");
     formData.append("token", token || "");
+    formData.append("postId", props.postId);
 
     props.data.images.forEach((file) => {
       formData.append("images", file.file);
